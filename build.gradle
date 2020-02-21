@@ -1,0 +1,49 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.vanniktech:gradle-maven-publish-plugin:${maven_publish_plugin_version}"
+        classpath "com.android.tools.build:gradle:3.5.3"
+        classpath "com.ahmedmourad.mirror:mirror-compiler-plugin-gradle"
+    }
+}
+
+String resolvedJvmTarget = System.getenv().getOrDefault("ci_java_version", "1.8")
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+    }
+
+    pluginManager.withPlugin("org.jetbrains.kotlin.jvm") {
+        project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+            kotlinOptions {
+                jvmTarget = resolvedJvmTarget
+                freeCompilerArgs += ["-progressive"]
+            }
+        }
+    }
+}
+
+subprojects {
+    configurations.all {
+        resolutionStrategy {
+            dependencySubstitution {
+                // The Kotlin plugin will try to add the mirror-compiler-plugin to dependencies with a version
+                // We have it local to this project, so we want it to just substitute that with the local project
+                // Not needed for external consumers
+                substitute module("com.ahmedmourad.mirror:mirror-compiler-plugin") with project(":mirror-compiler-plugin")
+
+                // The Gradle plugin will add the annotations artifact to dependencies if a custom annotation isn"t defined.
+                // Not needed for external consumers
+                substitute module("com.ahmedmourad.mirror:mirror-compiler-plugin-annotations") with project(":mirror-compiler-plugin-annotations")
+            }
+        }
+    }
+}

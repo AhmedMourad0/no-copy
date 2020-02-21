@@ -1,0 +1,10 @@
+rootProject.name = "mirror-compiler-plugin"
+include "mirror-compiler-plugin"
+include "mirror-compiler-plugin-annotations"
+include "sample"
+
+includeBuild("mirror-compiler-gradle-plugin") {
+    dependencySubstitution {
+        substitute module("com.ahmedmourad.mirror:mirror-compiler-plugin-gradle") with project(":")
+    }
+}
