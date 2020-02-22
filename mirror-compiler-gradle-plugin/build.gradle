@@ -56,7 +56,7 @@ gradlePlugin {
     plugins {
         mirrorPlugin {
             id = "com.ahmedmourad.mirror.mirror-gradle-plugin"
-            implementationClass = "com.ahmedmourad.mirror.gradle.RedactedGradlePlugin"
+            implementationClass = "com.ahmedmourad.mirror.gradle.MirrorGradlePlugin"
         }
     }
 }

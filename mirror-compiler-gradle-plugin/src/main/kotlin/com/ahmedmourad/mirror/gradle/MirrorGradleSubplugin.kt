@@ -37,12 +37,16 @@ class MirrorGradleSubplugin : KotlinGradleSubplugin<AbstractCompile> {
     ): List<SubpluginOption> {
 
         val extension = project.extensions.findByType(MirrorGradleExtension::class.java) ?: MirrorGradleExtension()
-        val annotation = extension.annotation
+        val mirrorAnnotation = extension.mirrorAnnotation
+        val shatterAnnotation = extension.shatterAnnotation
 
-        if (annotation == DEFAULT_ANNOTATION) {
+        if (mirrorAnnotation == DEFAULT_MIRROR_ANNOTATION || shatterAnnotation == DEFAULT_SHATTER_ANNOTATION) {
             project.dependencies.add("implementation", "com.ahmedmourad.mirror:mirror-compiler-plugin-annotations:$VERSION")
         }
 
-        return listOf(SubpluginOption(key = "mirrorAnnotation", value = annotation))
+        return listOf(
+                SubpluginOption(key = "mirrorAnnotation", value = mirrorAnnotation),
+                SubpluginOption(key = "shatterAnnotation", value = shatterAnnotation)
+        )
     }
 }
