@@ -1,5 +1,6 @@
 package com.ahmedmourad.mirror.gradle
 
+import com.ahmedmourad.mirror.core.*
 import com.google.auto.service.AutoService
 import org.gradle.api.Project
 import org.gradle.api.tasks.compile.AbstractCompile
@@ -19,7 +20,7 @@ class MirrorGradleSubplugin : KotlinGradleSubplugin<AbstractCompile> {
     /**
      * Just needs to be consistent with the key for MirrorCommandLineProcessor#pluginId
      */
-    override fun getCompilerPluginId(): String = "mirror-compiler-plugin"
+    override fun getCompilerPluginId(): String = PLUGIN_ID
 
     override fun getPluginArtifact(): SubpluginArtifact = SubpluginArtifact(
         groupId = "com.ahmedmourad.mirror",
@@ -48,9 +49,9 @@ class MirrorGradleSubplugin : KotlinGradleSubplugin<AbstractCompile> {
         }
 
         return listOf(
-                SubpluginOption(key = "mirrorAnnotation", value = mirrorAnnotation),
-                SubpluginOption(key = "shatterAnnotation", value = shatterAnnotation),
-                SubpluginOption(key = "resolution", value = resolution.toString())
+                SubpluginOption(key = OPTION_MIRROR_ANNOTATION, value = mirrorAnnotation),
+                SubpluginOption(key = OPTION_SHATTER_ANNOTATION, value = shatterAnnotation),
+                SubpluginOption(key = OPTION_RESOLUTION, value = resolution.toString())
         )
     }
 }
