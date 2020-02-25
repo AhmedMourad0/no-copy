@@ -1,9 +1,12 @@
+import com.ahmedmourad.mirror.core.Resolution
+
 apply plugin: "org.jetbrains.kotlin.jvm"
 apply plugin: "com.ahmedmourad.mirror.mirror-gradle-plugin"
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}
 
-    testImplementation "junit:junit:4.13"
-    testImplementation "com.google.truth:truth:1.0.1"
+mirror {
+    resolution = Resolution.BY_ANNOTATION
 }
