@@ -30,8 +30,10 @@ class MirrorPlugin() : ComponentRegistrar {
         }
     }
 
-    override fun registerProjectComponents(project: MockProject,
-                                           configuration: CompilerConfiguration) {
+    override fun registerProjectComponents(
+            project: MockProject,
+            configuration: CompilerConfiguration
+    ) {
 
         val actualConfiguration = testConfiguration ?: configuration
 
@@ -44,7 +46,6 @@ class MirrorPlugin() : ComponentRegistrar {
                 CLIConfigurationKeys.MESSAGE_COLLECTOR_KEY,
                 realMessageCollector
         ) ?: realMessageCollector
-
 
         val mirrorAnnotation = checkNotNull(actualConfiguration[KEY_MIRROR_ANNOTATION])
         val shatterAnnotation = checkNotNull(actualConfiguration[KEY_SHATTER_ANNOTATION])

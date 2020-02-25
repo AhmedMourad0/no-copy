@@ -9,6 +9,7 @@ import org.jetbrains.kotlin.config.CompilerConfigurationKey
 
 internal val KEY_MIRROR_ANNOTATION = CompilerConfigurationKey<String>("mirrorAnnotation")
 internal val KEY_SHATTER_ANNOTATION = CompilerConfigurationKey<String>("shatterAnnotation")
+internal val KEY_RESOLUTION = CompilerConfigurationKey<String>("resolution")
 
 @AutoService(CommandLineProcessor::class)
 class MirrorCommandLineProcessor : CommandLineProcessor {
@@ -25,24 +26,30 @@ class MirrorCommandLineProcessor : CommandLineProcessor {
             CliOption(
                     optionName = "mirrorAnnotation",
                     valueDescription = "String",
-                    description = "fully qualified name of the annotation to use for mirror",
+                    description = "fully qualified name of the annotation to use instead of @Mirror",
                     required = true
             ), CliOption(
             optionName = "shatterAnnotation",
             valueDescription = "String",
-            description = "fully qualified name of the annotation to use for shatter",
+            description = "fully qualified name of the annotation to use instead of @Shatter",
+            required = true
+    ), CliOption(
+            optionName = "resolution",
+            valueDescription = "String",
+            description = "Plugin behaviour",
             required = true
     )
     )
 
     override fun processOption(
-        option: AbstractCliOption,
-        value: String,
-        configuration: CompilerConfiguration
+            option: AbstractCliOption,
+            value: String,
+            configuration: CompilerConfiguration
     ) {
         when (option.optionName) {
             "mirrorAnnotation" -> configuration.put(KEY_MIRROR_ANNOTATION, value)
             "shatterAnnotation" -> configuration.put(KEY_SHATTER_ANNOTATION, value)
+            "resolution" -> configuration.put(KEY_RESOLUTION, value)
             else -> error("Unexpected plugin option: ${option.optionName}")
         }
     }
