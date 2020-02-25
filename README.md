@@ -93,7 +93,7 @@ The default configuration will add the `-annotations` artifact (which has
 You can configure custom behavior with properties on the `mirror` extension.
 
 ```
-import com.ahmedmourad.mirror.core.Resolution
+import com.ahmedmourad.mirror.core.Strategy
 
 mirror {
   // Define custom annotations. The -annotations artifact won't be automatically added to
@@ -101,13 +101,13 @@ mirror {
   shatterAnnotation = "com.ahmedmourad.mirror.annotations.Shatter" // Default
   mirrorAnnotation = "com.ahmedmourad.mirror.annotations.Mirror" // Default
 
-  resolution = Resolution.BY_ANNOTATION // SHATTER_ALL, MIRROR_ALL_BY_LEAST_VISIBLE, MIRROR_ALL_BY_PRIMARY
+  strategy = Strategy.BY_ANNOTATION // SHATTER_ALL, MIRROR_ALL_BY_LEAST_VISIBLE, MIRROR_ALL_BY_PRIMARY
 }
 ```
 
-You can use resolution to choose how the plugin behaves:
+You can use `strategy` to choose how the plugin behaves:
 
-| Resolution | Behaviour |
+| Strategy | Behaviour |
 | ---------- | ----------|
 | BY_ANNOTATIONS (default) | The plugin will only mirror or shatter `copy` of the data classes marked with specified annotations. |
 | SHATTER_ALL | The plugin will shatter all `copy` methods of all data classes (no annotations needed). |
@@ -128,7 +128,7 @@ but usage in newer versions of kotlinc are not guaranteed to be stable.
 
 ## Road Map
 
-- Add resolutions
+- Add strategies
 - Add IDE plugin.
 - Publish 0.0.1
 - Support mirroring internal constructors.
