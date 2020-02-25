@@ -1,5 +1,6 @@
 package com.ahmedmourad.mirror.compiler
 
+import com.ahmedmourad.mirror.core.Resolution
 import com.google.auto.service.AutoService
 import org.jetbrains.annotations.TestOnly
 import org.jetbrains.kotlin.cli.common.CLIConfigurationKeys
@@ -47,14 +48,13 @@ class MirrorPlugin() : ComponentRegistrar {
                 realMessageCollector
         ) ?: realMessageCollector
 
-        val mirrorAnnotation = checkNotNull(actualConfiguration[KEY_MIRROR_ANNOTATION])
-        val shatterAnnotation = checkNotNull(actualConfiguration[KEY_SHATTER_ANNOTATION])
-        val fqMirrorAnnotation = FqName(mirrorAnnotation)
-        val fqShatterAnnotation = FqName(shatterAnnotation)
+        val fqMirrorAnnotation = FqName(checkNotNull(actualConfiguration[KEY_MIRROR_ANNOTATION]))
+        val fqShatterAnnotation = FqName(checkNotNull(actualConfiguration[KEY_SHATTER_ANNOTATION]))
+        val resolution = Resolution.valueOf(checkNotNull(actualConfiguration[KEY_RESOLUTION]))
 
         SyntheticResolveExtension.registerExtensionAsFirst(
                 project,
-                MirrorSyntheticResolveExtension(messageCollector, fqMirrorAnnotation, fqShatterAnnotation)
+                MirrorSyntheticResolveExtension(messageCollector, fqMirrorAnnotation, fqShatterAnnotation, resolution)
         )
     }
 }
