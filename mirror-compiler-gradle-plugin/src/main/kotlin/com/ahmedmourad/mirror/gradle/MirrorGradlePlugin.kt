@@ -1,5 +1,6 @@
 package com.ahmedmourad.mirror.gradle
 
+import com.ahmedmourad.mirror.core.Resolution
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -20,15 +21,4 @@ open class MirrorGradleExtension {
     var shatterAnnotation: String = DEFAULT_SHATTER_ANNOTATION
     /** Plugin behaviour */
     var resolution: Resolution = DEFAULT_RESOLUTION
-}
-
-enum class Resolution {
-    /** The plugin will only mirror or shatter `copy` of the data classes marked with specified annotations */
-    BY_ANNOTATION,
-    /** The plugin will shatter all `copy` methods of all data classes (no annotations needed) */
-    SHATTER_ALL,
-    /** The plugin will mirror the least visible constructor for all copy methods of all data classes (no annotations needed) */
-    MIRROR_ALL_BY_PRIMARY,
-    /** The plugin will mirror the primary constructor for all copy methods of all data classes (no annotations needed) */
-    MIRROR_ALL_BY_LEAST_VISIBLE
 }
