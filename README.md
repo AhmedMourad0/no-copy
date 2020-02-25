@@ -17,7 +17,7 @@ Shatter stops the kotlin compiler from generating the `copy` method:
 data class User(val name: String, val phoneNumber: String)
 ```
 
-Then you can do something like this and it actually makes sense:
+You can also do something like this and it actually makes sense:
 
 ```kotlin
 @Shatter
@@ -71,12 +71,12 @@ data class User(val name: String, val phoneNumber: String) {
 User("Ahmed", "+201234567890").copy(phoneNumber = "Happy birthday!") // copy is private in User
 ```
 
-However, mirroring internal constructors is not currently support, for now, consider
- using `@Shatter` instead and provide your own `copy` method.
+*However, mirroring internal constructors is not currently support.*
+*For now, consider using `@Shatter` instead and provide your own `copy` method.*
 
 ## Installation (not published yet)
 
-Apply the gradle plugin.
+Apply the gradle plugin:
 
 ```gradle
 buildscript {
@@ -93,24 +93,26 @@ The default configuration will add the `-annotations` artifact (which has
 You can configure custom behavior with properties on the `mirror` extension.
 
 ```
+import com.ahmedmourad.mirror.core.Resolution
+
 mirror {
   // Define custom annotations. The -annotations artifact won't be automatically added to
   // dependencies if you define your own.
   shatterAnnotation = "com.ahmedmourad.mirror.annotations.Shatter" // Default
   mirrorAnnotation = "com.ahmedmourad.mirror.annotations.Mirror" // Default
 
-  resolution = "byAnnotations" // shatterAll, mirrorAllByLeastVisible, mirrorAllByPrimary
+  resolution = Resolution.BY_ANNOTATION // SHATTER_ALL, MIRROR_ALL_BY_LEAST_VISIBLE, MIRROR_ALL_BY_PRIMARY
 }
 ```
 
 You can use resolution to choose how the plugin behaves:
 
 | Resolution | Behaviour |
-| :--------- | :---------|
-| byAnnotations | The plugin will only mirror or shatter `copy` of the data classes marked with specified annotations. |
-| shatterAll | The plugin will shatter all `copy` methods of all data classes (no annotations needed). |
-| mirrorAllByLeastVisible | The plugin will mirror the least visible constructor for all copy methods of all data classes (no annotations needed). |
-| mirrorAllByPrimary | The plugin will mirror the primary constructor for all copy methods of all data classes (no annotations needed). |
+| ---------- | ----------|
+| BY_ANNOTATIONS (default) | The plugin will only mirror or shatter `copy` of the data classes marked with specified annotations. |
+| SHATTER_ALL | The plugin will shatter all `copy` methods of all data classes (no annotations needed). |
+| MIRROR_ALL_BY_LEAST_VISIBLE | The plugin will mirror the least visible constructor for all copy methods of all data classes (no annotations needed). |
+| MIRROR_ALL_BY_PRIMARY | The plugin will mirror the primary constructor for all copy methods of all data classes (no annotations needed). |
 
 
 ## Caveats
@@ -126,7 +128,9 @@ but usage in newer versions of kotlinc are not guaranteed to be stable.
 
 ## Road Map
 
+- Add resolutions
 - Add IDE plugin.
+- Publish 0.0.1
 - Support mirroring internal constructors.
 - Support Maven.
 
