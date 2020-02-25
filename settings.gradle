@@ -6,7 +6,12 @@ include "sample"
 includeBuild("mirror-compiler-gradle-plugin") {
     dependencySubstitution {
         substitute module("com.ahmedmourad.mirror:mirror-compiler-plugin-gradle") with project(":")
+//
     }
 }
-include 'mirror-compiler-plugin-core'
 
+includeBuild("mirror-compiler-plugin-core") {
+    dependencySubstitution {
+        substitute module("com.ahmedmourad.mirror:mirror-compiler-plugin-core") with project(":")
+    }
+}

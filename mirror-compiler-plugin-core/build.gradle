@@ -1,5 +1,33 @@
+
+// Yank properties from shared file
+Properties props = new Properties()
+file("../gradle.properties").withInputStream { props.load(it) }
+props.each { key, val ->
+    ext.set(key, val)
+}
+buildscript {
+    Properties buildScriptProps = new Properties()
+    file("../gradle.properties").withInputStream { buildScriptProps.load(it) }
+    buildScriptProps.each { key, val ->
+        ext.set(key, val)
+    }
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+repositories {
+    google()
+    jcenter()
+}
+
 apply plugin: "org.jetbrains.kotlin.jvm"
-apply plugin: "com.vanniktech.maven.publish"
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
