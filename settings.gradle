@@ -8,3 +8,5 @@ includeBuild("mirror-compiler-gradle-plugin") {
         substitute module("com.ahmedmourad.mirror:mirror-compiler-plugin-gradle") with project(":")
     }
 }
+include 'mirror-compiler-plugin-core'
+
