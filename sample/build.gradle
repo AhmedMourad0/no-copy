@@ -1,4 +1,4 @@
-import com.ahmedmourad.mirror.core.Resolution
+import com.ahmedmourad.mirror.core.Strategy
 
 apply plugin: "org.jetbrains.kotlin.jvm"
 apply plugin: "com.ahmedmourad.mirror.mirror-gradle-plugin"
@@ -8,5 +8,5 @@ dependencies {
 }
 
 mirror {
-    resolution = Resolution.BY_ANNOTATION
+    strategy = Strategy.BY_ANNOTATIONS
 }

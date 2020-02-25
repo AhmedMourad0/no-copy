@@ -41,9 +41,9 @@ class MirrorGradleSubplugin : KotlinGradleSubplugin<AbstractCompile> {
 
         val mirrorAnnotation = extension.mirrorAnnotation
         val shatterAnnotation = extension.shatterAnnotation
-        val resolution = extension.resolution
+        val strategy = extension.strategy
 
-        if (resolution == Resolution.BY_ANNOTATION &&
+        if (strategy == Strategy.BY_ANNOTATIONS &&
                 (mirrorAnnotation == DEFAULT_MIRROR_ANNOTATION || shatterAnnotation == DEFAULT_SHATTER_ANNOTATION)) {
             project.dependencies.add("implementation", "com.ahmedmourad.mirror:mirror-compiler-plugin-annotations:$VERSION")
         }
@@ -51,7 +51,7 @@ class MirrorGradleSubplugin : KotlinGradleSubplugin<AbstractCompile> {
         return listOf(
                 SubpluginOption(key = OPTION_MIRROR_ANNOTATION, value = mirrorAnnotation),
                 SubpluginOption(key = OPTION_SHATTER_ANNOTATION, value = shatterAnnotation),
-                SubpluginOption(key = OPTION_RESOLUTION, value = resolution.toString())
+                SubpluginOption(key = OPTION_STRATEGY, value = strategy.toString())
         )
     }
 }

@@ -1,8 +1,8 @@
 package com.ahmedmourad.mirror.compiler
 
 import com.ahmedmourad.mirror.core.OPTION_MIRROR_ANNOTATION
-import com.ahmedmourad.mirror.core.OPTION_RESOLUTION
 import com.ahmedmourad.mirror.core.OPTION_SHATTER_ANNOTATION
+import com.ahmedmourad.mirror.core.OPTION_STRATEGY
 import com.ahmedmourad.mirror.core.PLUGIN_ID
 import com.google.auto.service.AutoService
 import org.jetbrains.kotlin.compiler.plugin.AbstractCliOption
@@ -13,7 +13,7 @@ import org.jetbrains.kotlin.config.CompilerConfigurationKey
 
 internal val KEY_MIRROR_ANNOTATION = CompilerConfigurationKey<String>(OPTION_MIRROR_ANNOTATION)
 internal val KEY_SHATTER_ANNOTATION = CompilerConfigurationKey<String>(OPTION_SHATTER_ANNOTATION)
-internal val KEY_RESOLUTION = CompilerConfigurationKey<String>(OPTION_RESOLUTION)
+internal val KEY_RESOLUTION = CompilerConfigurationKey<String>(OPTION_STRATEGY)
 
 @AutoService(CommandLineProcessor::class)
 class MirrorCommandLineProcessor : CommandLineProcessor {
@@ -38,7 +38,7 @@ class MirrorCommandLineProcessor : CommandLineProcessor {
             description = "fully qualified name of the annotation to use instead of @Shatter",
             required = true
     ), CliOption(
-            optionName = OPTION_RESOLUTION,
+            optionName = OPTION_STRATEGY,
             valueDescription = "String",
             description = "Plugin behaviour",
             required = true
@@ -53,7 +53,7 @@ class MirrorCommandLineProcessor : CommandLineProcessor {
         when (option.optionName) {
             OPTION_MIRROR_ANNOTATION -> configuration.put(KEY_MIRROR_ANNOTATION, value)
             OPTION_SHATTER_ANNOTATION -> configuration.put(KEY_SHATTER_ANNOTATION, value)
-            OPTION_RESOLUTION -> configuration.put(KEY_RESOLUTION, value)
+            OPTION_STRATEGY -> configuration.put(KEY_RESOLUTION, value)
             else -> error("Unexpected plugin option: ${option.optionName}")
         }
     }
