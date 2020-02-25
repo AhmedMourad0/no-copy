@@ -31,21 +31,7 @@ repositories {
     jcenter()
 }
 
-//region Version.kt template for setting the project version in the build
-sourceSets {
-    main.java.srcDirs += "$buildDir/generated/sources/version-templates/kotlin/main"
-}
-
-TaskProvider copyVersionTemplatesProvider = tasks.register("copyVersionTemplates", Copy) {
-    from rootProject.layout.projectDirectory.dir("version-templates")
-    into project.layout.buildDirectory.dir("generated/sources/version-templates/kotlin/main")
-    expand("projectVersion": "${project.version}")
-    filteringCharset = "UTF-8"
-}
-//endregion
-
 compileKotlin {
-    dependsOn copyVersionTemplatesProvider
     kotlinOptions {
         jvmTarget = System.getenv().getOrDefault("ci_java_version", "1.8")
         freeCompilerArgs += ["-progressive"]
