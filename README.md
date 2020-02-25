@@ -6,16 +6,16 @@ A Kotlin compiler plugin that facilitates using data classes as value-based clas
 
 ## Usage
 
+Include the gradle plugin in your project and apply `@Shatter` or `@Mirror` to your data class.
+
 ### @Shatter
 
-Include the gradle plugin in your project and apply `@Shatter` or `@Mirror` to your data class.
+Shatter stops the kotlin compiler from generating the `copy` method.
 
 ```kotlin
 @Shatter
 data class User(val name: String, val phoneNumber: String)
 ```
-
-This's stops the kotlin compiler from generating the `copy` method.
 
 Then you can do something like this and it actually makes sense:
 
@@ -41,9 +41,11 @@ Now you don't have to worry about your domain rules being broken by someone
 User("Ahmed", "+201234567890").copy(phoneNumber = "Happy birthday!") // Unresolved reference
 ```
 
+Or you can use `@Mirror`.
+
 ### @Mirror
 
-Or you can use `@Mirror` where `copy` mirrors the visibility of the annotated constructor:
+Mirror modifies `copy` to mirror the visibility of the annotated constructor:
 
 ```kotlin
 data class User @Mirror private constructor(val name: String, val phoneNumber: String)
