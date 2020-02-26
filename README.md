@@ -10,7 +10,7 @@ Include the gradle plugin in your project and apply `@Shatter` or `@Mirror` to y
 
 ### @Shatter
 
-Shatter stops the kotlin compiler from generating the `copy` method:
+`@Shatter` stops the kotlin compiler from generating the `copy` method:
 
 ```kotlin
 @Shatter
@@ -45,7 +45,7 @@ Or you can use `@Mirror`.
 
 ### @Mirror
 
-Mirror modifies `copy` to mirror the visibility of the annotated constructor:
+`@Mirror` modifies `copy` to mirror the visibility of the annotated constructor:
 
 ```kotlin
 data class User @Mirror private constructor(val name: String, val phoneNumber: String)
@@ -72,6 +72,7 @@ User("Ahmed", "+201234567890").copy(phoneNumber = "Happy birthday!") // copy is 
 ```
 
 *However, mirroring internal constructors is not currently support.*
+
 *For now, consider using `@Shatter` instead and provide your own `copy` method.*
 
 ## Installation (not published yet)
