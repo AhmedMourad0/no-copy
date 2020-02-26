@@ -98,8 +98,8 @@ import com.ahmedmourad.mirror.core.Strategy
 mirror {
   // Define custom annotations. The -annotations artifact won't be automatically added to
   // dependencies if you define your own.
-  shatterAnnotation = "com.ahmedmourad.mirror.annotations.Shatter" // Default
-  mirrorAnnotation = "com.ahmedmourad.mirror.annotations.Mirror" // Default
+  shatterAnnotation = "com.ahmedmourad.mirror.annotations.Shatter" // default
+  mirrorAnnotation = "com.ahmedmourad.mirror.annotations.Mirror" // default
 
   strategy = Strategy.BY_ANNOTATION // SHATTER_ALL, MIRROR_ALL_BY_LEAST_VISIBLE, MIRROR_ALL_BY_PRIMARY
 }
