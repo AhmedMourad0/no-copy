@@ -3,7 +3,7 @@ package com.ahmedmourad.mirror.sample
 import com.ahmedmourad.mirror.annotations.Mirror
 
 //@Shatter
-data class User @Mirror internal constructor(
+data class User @Mirror private constructor(
         val name: String,
         val email: String,
         val phoneNumber: String

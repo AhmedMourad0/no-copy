@@ -19,6 +19,7 @@ buildscript {
 
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.vanniktech:gradle-maven-publish-plugin:$maven_publish_plugin_version"
     }
 }
 
@@ -28,6 +29,7 @@ repositories {
 }
 
 apply plugin: "org.jetbrains.kotlin.jvm"
+apply plugin: "com.vanniktech.maven.publish"
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
