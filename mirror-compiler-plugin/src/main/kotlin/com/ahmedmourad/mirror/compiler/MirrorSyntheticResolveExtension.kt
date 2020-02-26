@@ -144,7 +144,6 @@ private fun handleMirror(
     newCopy?.let(result::add) ?: error("Couldn't mirror constructor ($fqName)")
 }
 
-
 private fun Annotated.hasAnnotation(mirrorAnnotation: FqName): Boolean {
     return annotations.hasAnnotation(mirrorAnnotation)
 }
