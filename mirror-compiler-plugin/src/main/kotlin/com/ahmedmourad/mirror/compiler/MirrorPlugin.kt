@@ -2,8 +2,6 @@ package com.ahmedmourad.mirror.compiler
 
 import com.ahmedmourad.mirror.core.Strategy
 import com.google.auto.service.AutoService
-import org.jetbrains.annotations.TestOnly
-import org.jetbrains.kotlin.cli.common.CLIConfigurationKeys
 import org.jetbrains.kotlin.cli.common.messages.CompilerMessageLocation
 import org.jetbrains.kotlin.cli.common.messages.CompilerMessageSeverity
 import org.jetbrains.kotlin.cli.common.messages.MessageCollector
@@ -20,41 +18,18 @@ import org.jetbrains.kotlin.resolve.extensions.SyntheticResolveExtension
 @AutoService(ComponentRegistrar::class)
 class MirrorPlugin() : ComponentRegistrar {
 
-    private var testConfiguration: CompilerConfiguration? = null
-
-    // No way to define options yet in compile testing
-    // https://github.com/tschuchortdev/kotlin-compile-testing/issues/34
-    @TestOnly
-    internal constructor(mirrorAnnotation: String) : this() {
-        testConfiguration = CompilerConfiguration().apply {
-            put(KEY_MIRROR_ANNOTATION, mirrorAnnotation)
-        }
-    }
-
     override fun registerProjectComponents(
             project: MockProject,
             configuration: CompilerConfiguration
     ) {
 
-        val actualConfiguration = testConfiguration ?: configuration
-
-        val realMessageCollector = configuration.get(
-                CLIConfigurationKeys.MESSAGE_COLLECTOR_KEY,
-                MessageCollector.NONE
-        )
-
-        val messageCollector = testConfiguration?.get(
-                CLIConfigurationKeys.MESSAGE_COLLECTOR_KEY,
-                realMessageCollector
-        ) ?: realMessageCollector
-
-        val fqMirrorAnnotation = FqName(checkNotNull(actualConfiguration[KEY_MIRROR_ANNOTATION]))
-        val fqShatterAnnotation = FqName(checkNotNull(actualConfiguration[KEY_SHATTER_ANNOTATION]))
-        val strategy = Strategy.valueOf(checkNotNull(actualConfiguration[KEY_RESOLUTION]))
+        val fqMirrorAnnotation = FqName(checkNotNull(configuration[KEY_MIRROR_ANNOTATION]))
+        val fqShatterAnnotation = FqName(checkNotNull(configuration[KEY_SHATTER_ANNOTATION]))
+        val strategy = Strategy.valueOf(checkNotNull(configuration[KEY_RESOLUTION]))
 
         SyntheticResolveExtension.registerExtensionAsFirst(
                 project,
-                MirrorSyntheticResolveExtension(messageCollector, fqMirrorAnnotation, fqShatterAnnotation, strategy)
+                MirrorSyntheticResolveExtension(fqMirrorAnnotation, fqShatterAnnotation, strategy)
         )
     }
 }
