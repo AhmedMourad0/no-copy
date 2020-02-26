@@ -80,16 +80,16 @@ private fun handleByAnnotation(
         onShatter: () -> Unit
 ) {
 
-    val hasShatterAnnotation = thisDescriptor.hasShatter(fqShatterAnnotation)
+    val isShattered = thisDescriptor.hasShatter(fqShatterAnnotation)
 
     if (!thisDescriptor.isData) {
 
         if (thisDescriptor.hasMirror(fqMirrorAnnotation)) {
-            error("Only data classes could be annotated with Mirror (${thisDescriptor.fqNameOrNull()})")
+            error("Only data classes could be annotated with @Mirror (${thisDescriptor.fqNameOrNull()})")
         }
 
-        if (hasShatterAnnotation) {
-            error("Only data classes could be annotated with Shatter (${thisDescriptor.fqNameOrNull()})")
+        if (isShattered) {
+            error("Only data classes could be annotated with @Shatter (${thisDescriptor.fqNameOrNull()})")
         }
 
         return
@@ -99,22 +99,27 @@ private fun handleByAnnotation(
         return
     }
 
-    val mirrorConstructors = thisDescriptor.constructors.filter { it.hasAnnotation(fqMirrorAnnotation) }
+    val mirroredConstructors = thisDescriptor.constructors.filter { it.hasAnnotation(fqMirrorAnnotation) }
 
-    if (mirrorConstructors.size > 1) {
-        error("You cannot have more than one Mirror annotated constructors (${thisDescriptor.fqNameOrNull()})")
+    if (mirroredConstructors.size > 1) {
+        error("You cannot have more than one @Mirror annotated constructors (${thisDescriptor.fqNameOrNull()})")
     }
 
-    val hasMirrorAnnotation = mirrorConstructors.isNotEmpty()
+    val isConstructorMirrored = mirroredConstructors.isNotEmpty()
+    val isClassMirrored = thisDescriptor.hasAnnotation(fqMirrorAnnotation)
 
-    if (hasMirrorAnnotation && hasShatterAnnotation) {
-        error("You cannot have Mirror and Shatter for the same data class (${thisDescriptor.fqNameOrNull()})")
+    if (isConstructorMirrored && isClassMirrored) {
+        error("You cannot have @Mirror on a class and its constructor at the same time (${thisDescriptor.fqNameOrNull()})")
     }
 
-    if (hasShatterAnnotation) {
-        onShatter()
-    } else if (hasMirrorAnnotation) {
-        onMirror(mirrorConstructors[0].visibility)
+    if ((isClassMirrored || isConstructorMirrored) && isShattered) {
+        error("You cannot have @Mirror and Shatter for the same data class (${thisDescriptor.fqNameOrNull()})")
+    }
+
+    when {
+        isShattered -> onShatter()
+        isConstructorMirrored -> onMirror(mirroredConstructors[0].visibility)
+        isClassMirrored -> onMirror(thisDescriptor.constructors.findLeastVisible().visibility)
     }
 }
 
@@ -129,7 +134,7 @@ private fun handleMirror(
 ) {
 
     if (visibility == Visibilities.INTERNAL) {
-        error("Mirroring internal constructors is not currently supported, try Shatter instead ($fqName)")
+        error("Mirroring internal constructors is not currently supported, try @Shatter instead ($fqName)")
     }
 
     val newCopy = result.firstOrNull()
@@ -161,7 +166,7 @@ private fun Collection<ClassConstructorDescriptor>.findPrimary(): ClassConstruct
 }
 
 private fun ClassDescriptor.hasMirror(fqMirrorAnnotation: FqName): Boolean {
-    return this.constructors.any { it.hasAnnotation(fqMirrorAnnotation) }
+    return this.hasAnnotation(fqMirrorAnnotation) || this.constructors.any { it.hasAnnotation(fqMirrorAnnotation) }
 }
 
 private fun ClassDescriptor.hasShatter(fqShatterAnnotation: FqName): Boolean {
