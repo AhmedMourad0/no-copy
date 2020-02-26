@@ -128,7 +128,6 @@ but usage in newer versions of kotlinc are not guaranteed to be stable.
 
 ## Road Map
 
-- Add strategies
 - Add IDE plugin.
 - Publish 0.0.1
 - Support mirroring internal constructors.
