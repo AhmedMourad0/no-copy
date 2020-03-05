@@ -29,12 +29,12 @@ class MirrorCommandLineProcessor : CommandLineProcessor {
     override val pluginOptions: Collection<CliOption> = listOf(
             CliOption(
                     optionName = OPTION_MIRROR_ANNOTATION,
-                    valueDescription = "String",
+                    valueDescription = "<fqname>",
                     description = "fully qualified name of the annotation to use instead of @Mirror",
                     required = true
             ), CliOption(
             optionName = OPTION_SHATTER_ANNOTATION,
-            valueDescription = "String",
+            valueDescription = "<fqname>",
             description = "fully qualified name of the annotation to use instead of @Shatter",
             required = true
     ), CliOption(
