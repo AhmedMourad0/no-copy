@@ -10,7 +10,7 @@ import org.jetbrains.kotlin.resolve.BindingContext
 import org.jetbrains.kotlin.resolve.descriptorUtil.fqNameOrNull
 import org.jetbrains.kotlin.resolve.extensions.SyntheticResolveExtension
 
-class MirrorSyntheticResolveExtension(
+open class MirrorSyntheticResolveExtension(
         private val fqMirrorAnnotation: FqName,
         private val fqShatterAnnotation: FqName,
         private val strategy: Strategy
@@ -23,36 +23,34 @@ class MirrorSyntheticResolveExtension(
             fromSupertypes: List<SimpleFunctionDescriptor>,
             result: MutableCollection<SimpleFunctionDescriptor>
     ) {
+
+        if (!isDataCopyMethod(thisDescriptor, name, result)) {
+            super.generateSyntheticMethods(thisDescriptor, name, bindingContext, fromSupertypes, result)
+            return
+        }
+
         when (strategy) {
 
             Strategy.SHATTER_ALL -> {
-                if (isDataCopyMethod(thisDescriptor, name)) {
-                    handleShatter(result)
-                } else {
-                    super.generateSyntheticMethods(thisDescriptor, name, bindingContext, fromSupertypes, result)
-                }
+                handleShatter(result)
             }
 
             Strategy.MIRROR_ALL_BY_LEAST_VISIBLE -> {
                 super.generateSyntheticMethods(thisDescriptor, name, bindingContext, fromSupertypes, result)
-                if (isDataCopyMethod(thisDescriptor, name)) {
-                    handleMirror(
-                            thisDescriptor.fqNameOrNull(),
-                            thisDescriptor.constructors.findLeastVisible().visibility,
-                            result
-                    )
-                }
+                handleMirror(
+                        thisDescriptor.fqNameOrNull(),
+                        thisDescriptor.constructors.findLeastVisible().visibility,
+                        result
+                )
             }
 
             Strategy.MIRROR_ALL_BY_PRIMARY -> {
                 super.generateSyntheticMethods(thisDescriptor, name, bindingContext, fromSupertypes, result)
-                if (isDataCopyMethod(thisDescriptor, name)) {
-                    handleMirror(
-                            thisDescriptor.fqNameOrNull(),
-                            thisDescriptor.constructors.findPrimary().visibility,
-                            result
-                    )
-                }
+                handleMirror(
+                        thisDescriptor.fqNameOrNull(),
+                        thisDescriptor.constructors.findPrimary().visibility,
+                        result
+                )
             }
 
             Strategy.BY_ANNOTATIONS -> {
@@ -67,7 +65,11 @@ class MirrorSyntheticResolveExtension(
     }
 }
 
-private fun isDataCopyMethod(thisDescriptor: ClassDescriptor, name: Name): Boolean {
+private fun isDataCopyMethod(
+        thisDescriptor: ClassDescriptor,
+        name: Name,
+        result: MutableCollection<SimpleFunctionDescriptor>
+): Boolean {
     return thisDescriptor.isData && name.asString() == "copy"
 }
 
@@ -144,8 +146,8 @@ private fun handleMirror(
     newCopy?.let(result::add) ?: error("Couldn't mirror constructor ($fqName)")
 }
 
-private fun Annotated.hasAnnotation(mirrorAnnotation: FqName): Boolean {
-    return annotations.hasAnnotation(mirrorAnnotation)
+private fun Annotated.hasAnnotation(annotation: FqName): Boolean {
+    return annotations.hasAnnotation(annotation)
 }
 
 private fun Collection<ClassConstructorDescriptor>.findLeastVisible(): ClassConstructorDescriptor {
