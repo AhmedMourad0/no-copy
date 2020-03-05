@@ -73,7 +73,7 @@ User("Ahmed", "+201234567890").copy(phoneNumber = "Happy birthday!") // copy is 
 
 *However, mirroring internal constructors is not currently support.*
 
-*For now, consider using `@Shatter` instead and provide your own `copy` method.*
+*For now, consider using `@Shatter` instead and provide your own cloning method.*
 
 ## Installation (not published yet)
 
@@ -89,33 +89,6 @@ buildscript {
 apply plugin: 'com.ahmedmourad.mirror.mirror-gradle-plugin'
 ```
 
-The default configuration will add the `-annotations` artifact (which has
- the `@Mirror` and `@Shatter` annotations) 
-You can configure custom behavior with properties on the `mirror` extension.
-
-```
-import com.ahmedmourad.mirror.core.Strategy
-
-mirror {
-  // Define custom annotations. The -annotations artifact won't be automatically added to
-  // dependencies if you define your own.
-  shatterAnnotation = "com.ahmedmourad.mirror.annotations.Shatter" // default
-  mirrorAnnotation = "com.ahmedmourad.mirror.annotations.Mirror" // default
-
-  strategy = Strategy.BY_ANNOTATION // SHATTER_ALL, MIRROR_ALL_BY_LEAST_VISIBLE, MIRROR_ALL_BY_PRIMARY
-}
-```
-
-You can use `strategy` to choose how the plugin behaves:
-
-| Strategy | Behaviour |
-| ---------- | ----------|
-| BY_ANNOTATIONS (default) | The plugin will only mirror or shatter `copy` of the data classes marked with specified annotations. |
-| SHATTER_ALL | The plugin will shatter all `copy` methods of all data classes (no annotations needed). |
-| MIRROR_ALL_BY_LEAST_VISIBLE | The plugin will mirror the least visible constructor for all copy methods of all data classes (no annotations needed). |
-| MIRROR_ALL_BY_PRIMARY | The plugin will mirror the primary constructor for all copy methods of all data classes (no annotations needed). |
-
-
 ## Caveats
 
 - Kotlin compiler plugins are not a stable API. Compiled outputs from this plugin should be stable,
@@ -129,10 +102,11 @@ but usage in newer versions of kotlinc are not guaranteed to be stable.
 
 ## Road Map
 
-- Add IDE plugin.
 - Publish 0.0.1
+- Remove the warning for private constructor on data classes
 - Support mirroring internal constructors.
-- Support Maven.
+- Allow adding functions named `copy` to data classes
+- Migrate to Arrow-Meta
 
 License
 -------
