@@ -17,7 +17,11 @@ Include the gradle plugin in your project and apply `@Shatter` or `@Mirror` to y
 data class User(val name: String, val phoneNumber: String)
 ```
 
-You can also do something like this and it actually makes sense:
+```kotlin
+User("Ahmed", "+201234567890").copy(phoneNumber = "Happy birthday!") // Unresolved reference
+```
+
+Now, you can do something like this and it actually makes sense:
 
 ```kotlin
 @Shatter
@@ -34,12 +38,8 @@ data class User private constructor(val name: String, val phoneNumber: String) {
 }
 ```
 
-Now you don't have to worry about your domain rules being broken by someone
- using the `copy` method with illegal values after the user object has been created:
-
-```kotlin
-User("Ahmed", "+201234567890").copy(phoneNumber = "Happy birthday!") // Unresolved reference
-```
+You no longer have to worry about your domain rules being broken by someone
+ using the `copy` method with illegal values after the user object has been created.
 
 Or you can use `@Mirror`.
 
@@ -102,8 +102,8 @@ but usage in newer versions of kotlinc are not guaranteed to be stable.
 
 ## Road Map
 
-- Publish 0.0.1
 - Remove the warning for private constructor on data classes
+- Publish 0.0.1
 - Support mirroring internal constructors.
 - Allow adding functions named `copy` to data classes
 - Migrate to Arrow-Meta
