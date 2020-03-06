@@ -1,7 +1,7 @@
-mirror-compiler-plugin
+Mirror Compiler Plugin
 ========================
 
-A Kotlin compiler plugin that facilitates using data classes as value-based classes
+A Kotlin compiler plugin that enables using data classes as value-based classes
  by manipulating the `copy` method.
 
 ## Usage
@@ -78,7 +78,7 @@ Apply the gradle plugin:
 ```gradle
 buildscript {
   dependencies {
-    classpath "com.ahmedmourad.mirror:mirror-compiler-plugin-gradle:0.0.1"
+    classpath "com.ahmedmourad.mirror:mirror-gradle-plugin:0.0.1"
   }  
 }
 
