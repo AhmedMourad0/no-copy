@@ -1,10 +1,10 @@
 <idea-plugin>
-    <id>com.ahmedmourad.mirror.mirror-compiler-intellij-plugin</id>
+    <id>com.ahmedmourad.mirror.idea-plugin</id>
     <name>Mirror Compiler</name>
     <vendor email="dev.ahmedmourad73744@gmail.com" url="https://www.ahmedmourad.com">Ahmed Mourad</vendor>
 
     <description><![CDATA[
-    A Kotlin compiler plugin that facilitates using data classes as value-based classes.<br>
+    A Kotlin compiler plugin that enables using data classes as value-based classes.<br>
     <a href="https://github.com/AhmedMourad0/Mirror">Visit on Github</a>
     ]]></description>
 

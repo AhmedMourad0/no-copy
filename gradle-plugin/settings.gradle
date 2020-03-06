@@ -6,4 +6,4 @@ pluginManagement {
   }
 }
 
-rootProject.name = "mirror-compiler-gradle-plugin"
+rootProject.name = "gradle-plugin"

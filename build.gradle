@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 buildscript {
     repositories {
         google()
@@ -8,7 +10,7 @@ buildscript {
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.vanniktech:gradle-maven-publish-plugin:$maven_publish_plugin_version"
-        classpath "com.ahmedmourad.mirror:mirror-compiler-plugin-gradle"
+        classpath "com.ahmedmourad.mirror:mirror-gradle-plugin"
     }
 }
 
@@ -21,7 +23,7 @@ allprojects {
     }
 
     pluginManager.withPlugin("org.jetbrains.kotlin.jvm") {
-        project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        project.tasks.withType(KotlinCompile).configureEach {
             kotlinOptions {
                 jvmTarget = resolvedJvmTarget
                 freeCompilerArgs += ["-progressive"]
@@ -34,14 +36,14 @@ subprojects {
     configurations.all {
         resolutionStrategy {
             dependencySubstitution {
-                // The Kotlin plugin will try to add the mirror-compiler-plugin to dependencies with a version
+                // The Kotlin plugin will try to add the compiler-plugin to dependencies with a version
                 // We have it local to this project, so we want it to just substitute that with the local project
                 // Not needed for external consumers
-                substitute module("com.ahmedmourad.mirror:mirror-compiler-plugin") with project(":mirror-compiler-plugin")
+                substitute module("com.ahmedmourad.mirror:compiler-plugin") with project(":compiler-plugin")
 
                 // The Gradle plugin will add the annotations artifact to dependencies if a custom annotation isn"t defined.
                 // Not needed for external consumers
-                substitute module("com.ahmedmourad.mirror:mirror-compiler-plugin-annotations") with project(":mirror-compiler-plugin-annotations")
+                substitute module("com.ahmedmourad.mirror:annotations") with project(":annotations")
             }
         }
     }

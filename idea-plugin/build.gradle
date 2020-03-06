@@ -2,9 +2,11 @@ plugins {
     id "org.jetbrains.intellij" version "0.4.16"
     id "kotlin"
 }
-
-group "com.ahmedmourad.mirror"
-version "0.0.1"
+//apply plugin: 'java'
+//apply plugin: 'kotlin'
+//apply plugin: 'org.jetbrains.intellij'
+//group "com.ahmedmourad.mirror"
+//version "0.0.1"
 
 repositories {
     mavenCentral()
@@ -15,13 +17,13 @@ repositories {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    implementation project(":mirror-compiler-plugin")
+    implementation project(":compiler-plugin")
 }
 
 intellij {
     version "2019.3.3"
-    pluginName = "Mirror Compiler"
-    plugins = ["gradle", "Kotlin"]
+    pluginName = "Mirror Intellij IDEA Plugin"
+    setPlugins("gradle", "Kotlin")
 }
 
 compileKotlin {
