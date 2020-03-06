@@ -71,10 +71,6 @@ data class User(val name: String, val phoneNumber: String) {
 User("Ahmed", "+201234567890").copy(phoneNumber = "Happy birthday!") // copy is private in User
 ```
 
-*However, mirroring internal constructors is not currently support.*
-
-*For now, consider using `@Shatter` instead and provide your own cloning method.*
-
 ## Installation (not published yet)
 
 Apply the gradle plugin:
@@ -91,6 +87,12 @@ apply plugin: 'com.ahmedmourad.mirror.mirror-gradle-plugin'
 
 ## Caveats
 
+- Mirroring internal constructors is not currently support. For now, consider using `@Shatter` instead
+ and providing your own cloning method. *(Fix planned in a future release)*
+ 
+- For now, you cannot have methods named `copy` inside your `@Mirror` or `@Shatter` annotated classes or
+ they will be affected by the mirroring or shattering respectively. *(Fix planned in a future release)*
+
 - Kotlin compiler plugins are not a stable API. Compiled outputs from this plugin should be stable,
 but usage in newer versions of kotlinc are not guaranteed to be stable.
 
@@ -105,7 +107,7 @@ but usage in newer versions of kotlinc are not guaranteed to be stable.
 - Remove the warning for private constructor on data classes
 - Publish 0.0.1
 - Support mirroring internal constructors.
-- Allow adding functions named `copy` to data classes
+- Allow adding functions named `copy` to `@Mirror` and `@Shatter` annotated data classes
 - Migrate to Arrow-Meta
 
 License
@@ -126,3 +128,4 @@ License
     limitations under the License.
 
  [snapshots]: https://oss.sonatype.org/content/repositories/snapshots/
+ 
