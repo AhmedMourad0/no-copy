@@ -1,4 +1,4 @@
-package com.ahmedmourad.mirror.intellij
+package com.ahmedmourad.mirror.idea
 
 import com.ahmedmourad.mirror.core.Strategy
 import com.intellij.openapi.project.Project
