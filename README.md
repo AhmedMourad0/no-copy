@@ -10,7 +10,7 @@ Include the gradle plugin in your project and apply `@Shatter` or `@Mirror` to y
 
 ### @Shatter
 
-`@Shatter` stops the kotlin compiler from generating the `copy` method:
+`@Shatter` prevents the kotlin compiler from generating the `copy` method:
 
 ```kotlin
 @Shatter
