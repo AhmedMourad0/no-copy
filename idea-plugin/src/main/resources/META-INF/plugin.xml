@@ -4,7 +4,7 @@
     <vendor email="dev.ahmedmourad73744@gmail.com" url="https://www.ahmedmourad.com">Ahmed Mourad</vendor>
 
     <description><![CDATA[
-    A Kotlin compiler plugin that enables using data classes as value-based classes.<br>
+    The IDEA plugin for Mirror, a Kotlin compiler plugin that enables using data classes as value-based classes.<br>
     <a href="https://github.com/AhmedMourad0/Mirror">Visit on Github</a>
     ]]></description>
 
@@ -12,17 +12,16 @@
 
     <extensions defaultExtensionNs="org.jetbrains.kotlin">
         <syntheticResolveExtension
-                implementation="com.ahmedmourad.mirror.intellij.MirrorIdeSyntheticResolveExtension"
+                implementation="com.ahmedmourad.mirror.idea.MirrorIdeSyntheticResolveExtension"
                 order="first"
         />
-        <!--        <gradleProjectImportHandler implementation="com.ahmedmourad.mirror.intellij.MirrorGradleProjectImportHandler" />-->
     </extensions>
 
     <extensions defaultExtensionNs="com.intellij">
         <lang.inspectionSuppressor
                 language="kotlin"
-                implementationClass="com.ahmedmourad.mirror.intellij.DataPrivateConstructorInspectionSuppressor"
-                order="first"
+                implementationClass="com.ahmedmourad.mirror.idea.DataClassPrivateConstructorInspectionSuppressor"
+                order="last"
         />
     </extensions>
 
