@@ -104,11 +104,13 @@ but usage in newer versions of kotlinc are not guaranteed to be stable.
 
 ## Road Map
 
-- Remove the warning for private constructor on data classes
+- Replace default data class private constructor inspection with our own
 - Publish 0.0.1
-- Support mirroring internal constructors.
 - Allow adding functions named `copy` to `@Mirror` and `@Shatter` annotated data classes
+- Support mirroring internal constructors.
+- Publish 0.0.2
 - Migrate to Arrow-Meta
+- Go Multiplatform
 
 License
 -------
