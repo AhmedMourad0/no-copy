@@ -15,4 +15,3 @@ includeBuild("core") {
         substitute module("com.ahmedmourad.mirror:core") with project(":")
     }
 }
-

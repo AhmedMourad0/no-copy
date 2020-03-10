@@ -1,20 +1,9 @@
-import com.ahmedmourad.mirror.core.Strategy
 
-apply plugin: "org.jetbrains.kotlin.jvm"
-apply plugin: "com.ahmedmourad.mirror.mirror-gradle-plugin"
+plugins {
+    id "org.jetbrains.kotlin.jvm"
+    id "com.ahmedmourad.mirror.mirror-gradle-plugin"
+}
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-}
-
-mirror {
-    strategy = Strategy.BY_ANNOTATIONS
-}
-
-compileKotlin {
-    kotlinOptions.jvmTarget = "1.8"
-}
-
-compileTestKotlin {
-    kotlinOptions.jvmTarget = "1.8"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
