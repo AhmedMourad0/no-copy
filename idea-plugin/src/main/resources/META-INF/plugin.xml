@@ -21,7 +21,6 @@
         <lang.inspectionSuppressor
                 language="kotlin"
                 implementationClass="com.ahmedmourad.mirror.idea.DataClassPrivateConstructorInspectionSuppressor"
-                order="last"
         />
     </extensions>
 
