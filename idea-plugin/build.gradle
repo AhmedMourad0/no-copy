@@ -1,19 +1,43 @@
+buildscript {
+
+    Properties props = new Properties()
+    file("../gradle.properties").withInputStream { props.load(it) }
+    props.each { key, val ->
+        ext.set(key, val)
+    }
+
+    Properties buildScriptProps = new Properties()
+    file("../gradle.properties").withInputStream { buildScriptProps.load(it) }
+    buildScriptProps.each { key, val ->
+        ext.set(key, val)
+    }
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.vanniktech:gradle-maven-publish-plugin:$maven_publish_plugin_version"
+    }
+}
 
 plugins {
     id "org.jetbrains.intellij" version "0.4.16"
-    id "org.jetbrains.kotlin.jvm"
+    id "org.jetbrains.kotlin.jvm" version "1.3.61"
 }
 
 repositories {
-    mavenCentral()
     maven {
         url "https://www.jetbrains.com/intellij-repository/snapshots"
     }
+    jcenter()
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation project(":compiler-plugin")
+    implementation "com.ahmedmourad.mirror:mirror-compiler-plugin"
 }
 
 intellij {

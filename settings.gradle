@@ -1,8 +1,5 @@
 rootProject.name = "mirror-compiler-plugin"
-include "compiler-plugin"
-include "annotations"
 include "sample"
-include "idea-plugin"
 
 includeBuild("gradle-plugin") {
     dependencySubstitution {
@@ -10,8 +7,26 @@ includeBuild("gradle-plugin") {
     }
 }
 
+includeBuild("compiler-plugin") {
+    dependencySubstitution {
+        substitute module("com.ahmedmourad.mirror:mirror-compiler-plugin") with project(":")
+    }
+}
+
 includeBuild("core") {
     dependencySubstitution {
-        substitute module("com.ahmedmourad.mirror:core") with project(":")
+        substitute module("com.ahmedmourad.mirror:mirror-core") with project(":")
+    }
+}
+
+includeBuild("idea-plugin") {
+    dependencySubstitution {
+        substitute module("com.ahmedmourad.mirror:mirror-idea-plugin") with project(":")
+    }
+}
+
+includeBuild("annotations") {
+    dependencySubstitution {
+        substitute module("com.ahmedmourad.mirror:mirror-annotations") with project(":")
     }
 }

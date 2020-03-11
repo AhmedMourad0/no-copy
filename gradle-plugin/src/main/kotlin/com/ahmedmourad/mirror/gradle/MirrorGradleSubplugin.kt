@@ -24,7 +24,7 @@ class MirrorGradleSubplugin : KotlinGradleSubplugin<AbstractCompile> {
 
     override fun getPluginArtifact(): SubpluginArtifact = SubpluginArtifact(
             groupId = "com.ahmedmourad.mirror",
-            artifactId = "compiler-plugin",
+            artifactId = "mirror-compiler-plugin",
             version = VERSION
     )
 
@@ -45,7 +45,7 @@ class MirrorGradleSubplugin : KotlinGradleSubplugin<AbstractCompile> {
 
         if (strategy == Strategy.BY_ANNOTATIONS &&
                 (mirrorAnnotation == DEFAULT_MIRROR_ANNOTATION || shatterAnnotation == DEFAULT_SHATTER_ANNOTATION)) {
-            project.dependencies.add("implementation", "com.ahmedmourad.mirror:annotations:$VERSION")
+            project.dependencies.add("implementation", "com.ahmedmourad.mirror:mirror-annotations:$VERSION")
         }
 
         return listOf(
