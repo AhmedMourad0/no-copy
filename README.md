@@ -39,7 +39,7 @@ data class User private constructor(val name: String, val phoneNumber: String) {
 ```
 
 You no longer have to worry about your domain rules being broken by someone
- using the `copy` method with illegal values after the user object has been created.
+ using the `copy` method with illegal values after an object has been instantiated.
 
 Or you can use `@Mirror`.
 
