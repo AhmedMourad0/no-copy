@@ -17,20 +17,3 @@ allprojects {
         jcenter()
     }
 }
-
-subprojects {
-    configurations.all {
-        resolutionStrategy {
-            dependencySubstitution {
-                // The Kotlin plugin will try to add the compiler-plugin to dependencies with a version
-                // We have it local to this project, so we want it to just substitute that with the local project
-                // Not needed for external consumers
-//                substitute module("com.ahmedmourad.mirror:mirror-compiler-plugin") with project(":compiler-plugin")
-
-                // The Gradle plugin will add the annotations artifact to dependencies if a custom annotation isn"t defined.
-                // Not needed for external consumers
-//                substitute module("com.ahmedmourad.mirror:mirror-annotations") with project(":annotations")
-            }
-        }
-    }
-}

@@ -1,6 +1,5 @@
 buildscript {
 
-    // Yank  properties from shared file
     Properties props = new Properties()
     file("../gradle.properties").withInputStream { props.load(it) }
     props.each { key, val ->
