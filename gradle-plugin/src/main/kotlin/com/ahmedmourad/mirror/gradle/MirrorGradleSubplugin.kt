@@ -1,6 +1,7 @@
 package com.ahmedmourad.mirror.gradle
 
-import com.ahmedmourad.mirror.core.*
+import com.ahmedmourad.mirror.core.PLUGIN_ID
+import com.ahmedmourad.mirror.core.VERSION
 import com.google.auto.service.AutoService
 import org.gradle.api.Project
 import org.gradle.api.tasks.compile.AbstractCompile
@@ -37,21 +38,11 @@ class MirrorGradleSubplugin : KotlinGradleSubplugin<AbstractCompile> {
         kotlinCompilation: KotlinCompilation<KotlinCommonOptions>?
     ): List<SubpluginOption> {
 
-        val extension = project.extensions.findByType(MirrorGradleExtension::class.java) ?: MirrorGradleExtension()
-
-        val mirrorAnnotation = extension.mirrorAnnotation
-        val shatterAnnotation = extension.shatterAnnotation
-        val strategy = extension.strategy
-
-        if (strategy == Strategy.BY_ANNOTATIONS &&
-                (mirrorAnnotation == DEFAULT_MIRROR_ANNOTATION || shatterAnnotation == DEFAULT_SHATTER_ANNOTATION)) {
-            project.dependencies.add("implementation", "com.ahmedmourad.mirror:mirror-annotations:$VERSION")
-        }
-
-        return listOf(
-                SubpluginOption(key = OPTION_MIRROR_ANNOTATION, value = mirrorAnnotation),
-                SubpluginOption(key = OPTION_SHATTER_ANNOTATION, value = shatterAnnotation),
-                SubpluginOption(key = OPTION_STRATEGY, value = strategy.toString())
+        project.dependencies.add(
+                "implementation",
+                "com.ahmedmourad.mirror:mirror-annotations:$VERSION"
         )
+
+        return emptyList()
     }
 }

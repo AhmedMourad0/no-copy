@@ -1,6 +1,7 @@
 package com.ahmedmourad.mirror.compiler
 
-import com.ahmedmourad.mirror.core.Strategy
+import com.ahmedmourad.mirror.core.MIRROR_ANNOTATION
+import com.ahmedmourad.mirror.core.SHATTER_ANNOTATION
 import org.jetbrains.kotlin.codegen.coroutines.createCustomCopy
 import org.jetbrains.kotlin.descriptors.*
 import org.jetbrains.kotlin.descriptors.annotations.Annotated
@@ -10,11 +11,7 @@ import org.jetbrains.kotlin.resolve.BindingContext
 import org.jetbrains.kotlin.resolve.descriptorUtil.fqNameOrNull
 import org.jetbrains.kotlin.resolve.extensions.SyntheticResolveExtension
 
-open class MirrorSyntheticResolveExtension(
-        private val fqMirrorAnnotation: FqName,
-        private val fqShatterAnnotation: FqName,
-        private val strategy: Strategy
-) : SyntheticResolveExtension {
+open class MirrorSyntheticResolveExtension : SyntheticResolveExtension {
 
     override fun generateSyntheticMethods(
             thisDescriptor: ClassDescriptor,
@@ -24,51 +21,23 @@ open class MirrorSyntheticResolveExtension(
             result: MutableCollection<SimpleFunctionDescriptor>
     ) {
 
-        if (!isDataCopyMethod(thisDescriptor, name, result)) {
+        if (!isDataCopyMethod(thisDescriptor, name)) {
             super.generateSyntheticMethods(thisDescriptor, name, bindingContext, fromSupertypes, result)
             return
         }
 
-        when (strategy) {
-
-            Strategy.SHATTER_ALL -> {
-                handleShatter(result)
-            }
-
-            Strategy.MIRROR_ALL_BY_LEAST_VISIBLE -> {
-                super.generateSyntheticMethods(thisDescriptor, name, bindingContext, fromSupertypes, result)
-                handleMirror(
-                        thisDescriptor.fqNameOrNull(),
-                        thisDescriptor.constructors.findLeastVisible().visibility,
-                        result
-                )
-            }
-
-            Strategy.MIRROR_ALL_BY_PRIMARY -> {
-                super.generateSyntheticMethods(thisDescriptor, name, bindingContext, fromSupertypes, result)
-                handleMirror(
-                        thisDescriptor.fqNameOrNull(),
-                        thisDescriptor.constructors.findPrimary().visibility,
-                        result
-                )
-            }
-
-            Strategy.BY_ANNOTATIONS -> {
-                handleByAnnotation(thisDescriptor, name, fqMirrorAnnotation, fqShatterAnnotation, onMirror = {
-                    super.generateSyntheticMethods(thisDescriptor, name, bindingContext, fromSupertypes, result)
-                    handleMirror(thisDescriptor.fqNameOrNull(), it, result)
-                }, onShatter = {
-                    handleShatter(result)
-                })
-            }
-        }
+        handleByAnnotation(thisDescriptor, name, onMirror = {
+            super.generateSyntheticMethods(thisDescriptor, name, bindingContext, fromSupertypes, result)
+            handleMirror(thisDescriptor.fqNameOrNull(), it, result)
+        }, onShatter = {
+            handleShatter(result)
+        })
     }
 }
 
 private fun isDataCopyMethod(
         thisDescriptor: ClassDescriptor,
-        name: Name,
-        result: MutableCollection<SimpleFunctionDescriptor>
+        name: Name
 ): Boolean {
     return thisDescriptor.isData && name.asString() == "copy"
 }
@@ -76,17 +45,18 @@ private fun isDataCopyMethod(
 private fun handleByAnnotation(
         thisDescriptor: ClassDescriptor,
         name: Name,
-        fqMirrorAnnotation: FqName,
-        fqShatterAnnotation: FqName,
         onMirror: (Visibility) -> Unit,
         onShatter: () -> Unit
 ) {
 
-    val isShattered = thisDescriptor.hasShatter(fqShatterAnnotation)
+    val mirrorAnnotation = FqName(MIRROR_ANNOTATION)
+    val shatterAnnotation = FqName(SHATTER_ANNOTATION)
+
+    val isShattered = thisDescriptor.hasShatter(shatterAnnotation)
 
     if (!thisDescriptor.isData) {
 
-        if (thisDescriptor.hasMirror(fqMirrorAnnotation)) {
+        if (thisDescriptor.hasMirror(mirrorAnnotation)) {
             error("Only data classes could be annotated with @Mirror (${thisDescriptor.fqNameOrNull()})")
         }
 
@@ -101,14 +71,14 @@ private fun handleByAnnotation(
         return
     }
 
-    val mirroredConstructors = thisDescriptor.constructors.filter { it.hasAnnotation(fqMirrorAnnotation) }
+    val mirroredConstructors = thisDescriptor.constructors.filter { it.hasAnnotation(mirrorAnnotation) }
 
     if (mirroredConstructors.size > 1) {
         error("You cannot have more than one @Mirror annotated constructors (${thisDescriptor.fqNameOrNull()})")
     }
 
     val isConstructorMirrored = mirroredConstructors.isNotEmpty()
-    val isClassMirrored = thisDescriptor.hasAnnotation(fqMirrorAnnotation)
+    val isClassMirrored = thisDescriptor.hasAnnotation(mirrorAnnotation)
 
     if (isConstructorMirrored && isClassMirrored) {
         error("You cannot have @Mirror on a class and its constructor at the same time (${thisDescriptor.fqNameOrNull()})")

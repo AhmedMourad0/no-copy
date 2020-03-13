@@ -4,6 +4,5 @@ const val VERSION = "0.0.1"
 const val PLUGIN_ID = "mirror-compiler-plugin"
 const val PLUGIN_NAME = "mirror"
 
-const val OPTION_MIRROR_ANNOTATION = "mirrorAnnotation"
-const val OPTION_SHATTER_ANNOTATION = "shatterAnnotation"
-const val OPTION_STRATEGY = "strategy"
+const val MIRROR_ANNOTATION = "com.ahmedmourad.mirror.annotations.Mirror"
+const val SHATTER_ANNOTATION = "com.ahmedmourad.mirror.annotations.Shatter"
