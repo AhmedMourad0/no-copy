@@ -2,7 +2,6 @@ package com.ahmedmourad.nocopy.gradle
 
 import com.ahmedmourad.nocopy.core.PLUGIN_ID
 import com.ahmedmourad.nocopy.core.VERSION
-import com.google.auto.service.AutoService
 import org.gradle.api.Project
 import org.gradle.api.tasks.compile.AbstractCompile
 import org.jetbrains.kotlin.gradle.dsl.KotlinCommonOptions
@@ -11,7 +10,6 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinGradleSubplugin
 import org.jetbrains.kotlin.gradle.plugin.SubpluginArtifact
 import org.jetbrains.kotlin.gradle.plugin.SubpluginOption
 
-@AutoService(KotlinGradleSubplugin::class)
 class NoCopyGradleSubplugin : KotlinGradleSubplugin<AbstractCompile> {
 
     override fun isApplicable(project: Project, task: AbstractCompile): Boolean {

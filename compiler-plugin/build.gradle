@@ -36,7 +36,4 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
     api "com.ahmedmourad.nocopy:nocopy-core"
-
-    compileOnly "com.google.auto.service:auto-service-annotations:$autoservice_version"
-    kapt "com.google.auto.service:auto-service:$autoservice_version"
 }
