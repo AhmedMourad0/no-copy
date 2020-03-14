@@ -1,4 +1,4 @@
-package com.ahmedmourad.mirror.annotations
+package com.ahmedmourad.nocopy.annotations
 
 import kotlin.annotation.AnnotationRetention.BINARY
 import kotlin.annotation.AnnotationTarget.CLASS
@@ -8,4 +8,4 @@ import kotlin.annotation.AnnotationTarget.CLASS
  */
 @Retention(BINARY)
 @Target(CLASS)
-annotation class Shatter
+annotation class NoCopy

@@ -1,9 +1,10 @@
-package com.ahmedmourad.mirror.sample
+package com.ahmedmourad.nocopy.sample
 
-import com.ahmedmourad.mirror.annotations.Shatter
+import com.ahmedmourad.nocopy.annotations.NoCopy
 
-@Shatter
-data class User /*@Mirror*/ private constructor(
+//@LeastVisibleCopy
+@NoCopy
+data class User private constructor(
         val name: String,
         val email: String,
         val phoneNumber: String

@@ -1,4 +1,4 @@
-package com.ahmedmourad.mirror.compiler
+package com.ahmedmourad.nocopy.compiler
 
 import com.google.auto.service.AutoService
 import org.jetbrains.kotlin.com.intellij.mock.MockProject
@@ -11,7 +11,7 @@ import org.jetbrains.kotlin.extensions.ProjectExtensionDescriptor
 import org.jetbrains.kotlin.resolve.extensions.SyntheticResolveExtension
 
 @AutoService(ComponentRegistrar::class)
-class MirrorPlugin : ComponentRegistrar {
+class NoCopyPlugin : ComponentRegistrar {
 
     override fun registerProjectComponents(
             project: MockProject,
@@ -19,7 +19,7 @@ class MirrorPlugin : ComponentRegistrar {
     ) {
         SyntheticResolveExtension.registerExtensionAsFirst(
                 project,
-                MirrorSyntheticResolveExtension()
+                NoCopySyntheticResolveExtension()
         )
     }
 }

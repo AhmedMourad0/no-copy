@@ -2,12 +2,12 @@ rootProject.name = "idea-plugin"
 
 includeBuild("../core") {
     dependencySubstitution {
-        substitute module("com.ahmedmourad.mirror:mirror-core") with project(":")
+        substitute module("com.ahmedmourad.nocopy:nocopy-core") with project(":")
     }
 }
 
 includeBuild("../compiler-plugin") {
     dependencySubstitution {
-        substitute module("com.ahmedmourad.mirror:mirror-compiler-plugin") with project(":")
+        substitute module("com.ahmedmourad.nocopy:nocopy-compiler-plugin") with project(":")
     }
 }

@@ -1,7 +1,7 @@
-package com.ahmedmourad.mirror.gradle
+package com.ahmedmourad.nocopy.gradle
 
-import com.ahmedmourad.mirror.core.PLUGIN_ID
-import com.ahmedmourad.mirror.core.VERSION
+import com.ahmedmourad.nocopy.core.PLUGIN_ID
+import com.ahmedmourad.nocopy.core.VERSION
 import com.google.auto.service.AutoService
 import org.gradle.api.Project
 import org.gradle.api.tasks.compile.AbstractCompile
@@ -12,20 +12,20 @@ import org.jetbrains.kotlin.gradle.plugin.SubpluginArtifact
 import org.jetbrains.kotlin.gradle.plugin.SubpluginOption
 
 @AutoService(KotlinGradleSubplugin::class)
-class MirrorGradleSubplugin : KotlinGradleSubplugin<AbstractCompile> {
+class NoCopyGradleSubplugin : KotlinGradleSubplugin<AbstractCompile> {
 
     override fun isApplicable(project: Project, task: AbstractCompile): Boolean {
-        return project.plugins.hasPlugin(MirrorGradlePlugin::class.java)
+        return project.plugins.hasPlugin(NoCopyGradlePlugin::class.java)
     }
 
     /**
-     * Just needs to be consistent with the key for MirrorCommandLineProcessor#pluginId
+     * Just needs to be consistent with the key for NoCopyCommandLineProcessor#pluginId
      */
     override fun getCompilerPluginId(): String = PLUGIN_ID
 
     override fun getPluginArtifact(): SubpluginArtifact = SubpluginArtifact(
-            groupId = "com.ahmedmourad.mirror",
-            artifactId = "mirror-compiler-plugin",
+            groupId = "com.ahmedmourad.nocopy",
+            artifactId = "nocopy-compiler-plugin",
             version = VERSION
     )
 
@@ -40,7 +40,7 @@ class MirrorGradleSubplugin : KotlinGradleSubplugin<AbstractCompile> {
 
         project.dependencies.add(
                 "implementation",
-                "com.ahmedmourad.mirror:mirror-annotations:$VERSION"
+                "com.ahmedmourad.nocopy:nocopy-annotations:$VERSION"
         )
 
         return emptyList()

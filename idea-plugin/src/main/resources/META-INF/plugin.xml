@@ -1,27 +1,63 @@
 <idea-plugin>
-    <id>com.ahmedmourad.mirror.idea-plugin</id>
-    <name>Mirror Compiler</name>
+    <id>com.ahmedmourad.nocopy.idea-plugin</id>
+    <name>NoCopy Compiler</name>
     <vendor email="dev.ahmedmourad73744@gmail.com" url="https://www.ahmedmourad.com">Ahmed Mourad</vendor>
 
     <description><![CDATA[
-    The IDEA plugin for Mirror, a Kotlin compiler plugin that enables using data classes as value-based classes.<br>
-    <a href="https://github.com/AhmedMourad0/Mirror">Visit on Github</a>
+    The IDEA plugin for no-copy, a Kotlin compiler plugin that enables using data classes as value-based classes.<br>
+    <a href="https://github.com/AhmedMourad0/NoCopy">Visit on Github</a>
     ]]></description>
 
     <depends>org.jetbrains.kotlin</depends>
 
     <extensions defaultExtensionNs="org.jetbrains.kotlin">
         <syntheticResolveExtension
-                implementation="com.ahmedmourad.mirror.idea.MirrorIdeSyntheticResolveExtension"
+                implementation="com.ahmedmourad.nocopy.idea.NoCopyIdeSyntheticResolveExtension"
                 order="first"
         />
     </extensions>
 
     <extensions defaultExtensionNs="com.intellij">
+
         <lang.inspectionSuppressor
                 language="kotlin"
-                implementationClass="com.ahmedmourad.mirror.idea.DataClassPrivateConstructorInspectionSuppressor"
+                implementationClass="com.ahmedmourad.nocopy.idea.DataClassPrivateConstructorInspectionSuppressor"
         />
+
+        <localInspection
+                language="kotlin"
+                displayName="NoCopy: Using multiple annotations on the same data class."
+                groupPath="Kotlin"
+                groupBundle="messages.InspectionsBundle"
+                groupKey="group.names.probable.bugs"
+                enabledByDefault="true"
+                level="ERROR"
+                implementationClass=""
+        />
+
+        <localInspection
+                language="kotlin"
+                displayName="NoCopy: Using data class annotations on a non-data class."
+                groupPath="Kotlin"
+                groupBundle="messages.InspectionsBundle"
+                groupKey="group.names.probable.bugs"
+                enabledByDefault="true"
+                level="ERROR"
+                implementationClass=""
+        />
+
+        <localInspection
+                language="kotlin"
+                displayName="NoCopy: Private data class constructor is exposed via the generated 'copy' method."
+                groupPath="Kotlin"
+                groupBundle="messages.InspectionsBundle"
+                groupKey="group.names.probable.bugs"
+                enabledByDefault="true"
+                level="WARNING"
+                suppressId="NoCopyDataClassPrivateConstructor"
+                implementationClass="org.jetbrains.kotlin.idea.inspections.DataClassPrivateConstructorInspection"
+        />
+
     </extensions>
 
 </idea-plugin>

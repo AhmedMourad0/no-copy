@@ -7,7 +7,7 @@ buildscript {
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.vanniktech:gradle-maven-publish-plugin:$maven_publish_plugin_version"
-        classpath "com.ahmedmourad.mirror:mirror-gradle-plugin"
+        classpath "com.ahmedmourad.nocopy:nocopy-gradle-plugin"
     }
 }
 

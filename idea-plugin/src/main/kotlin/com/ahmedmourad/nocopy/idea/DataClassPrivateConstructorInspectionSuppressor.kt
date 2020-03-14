@@ -1,4 +1,4 @@
-package com.ahmedmourad.mirror.idea
+package com.ahmedmourad.nocopy.idea
 
 import com.intellij.codeInspection.InspectionSuppressor
 import com.intellij.codeInspection.SuppressQuickFix

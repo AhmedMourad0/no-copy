@@ -34,9 +34,9 @@ repositories {
 
 gradlePlugin {
     plugins {
-        mirrorPlugin {
-            id = "com.ahmedmourad.mirror.mirror-gradle-plugin"
-            implementationClass = "com.ahmedmourad.mirror.gradle.MirrorGradlePlugin"
+        nocopyPlugin {
+            id = "com.ahmedmourad.nocopy.nocopy-gradle-plugin"
+            implementationClass = "com.ahmedmourad.nocopy.gradle.NoCopyGradlePlugin"
         }
     }
 }
@@ -49,5 +49,5 @@ dependencies {
     compileOnly "com.google.auto.service:auto-service-annotations:$autoservice_version"
     kapt "com.google.auto.service:auto-service:$autoservice_version"
 
-    implementation "com.ahmedmourad.mirror:mirror-core"
+    implementation "com.ahmedmourad.nocopy:nocopy-core"
 }
