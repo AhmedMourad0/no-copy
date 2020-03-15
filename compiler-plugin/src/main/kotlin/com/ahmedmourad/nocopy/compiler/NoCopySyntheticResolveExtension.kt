@@ -13,6 +13,10 @@ import org.jetbrains.kotlin.resolve.extensions.SyntheticResolveExtension
 
 open class NoCopySyntheticResolveExtension : SyntheticResolveExtension {
 
+    protected open fun onError(message: String) {
+        error(message)
+    }
+
     override fun generateSyntheticMethods(
             thisDescriptor: ClassDescriptor,
             name: Name,
@@ -28,25 +32,19 @@ open class NoCopySyntheticResolveExtension : SyntheticResolveExtension {
 
         handleByAnnotation(thisDescriptor, name, onLeastVisibleCopy = {
             super.generateSyntheticMethods(thisDescriptor, name, bindingContext, fromSupertypes, result)
-            handleLeastVisibleCopy(thisDescriptor.fqNameOrNull(), it, result)
+            handleLeastVisibleCopy(thisDescriptor.fqNameOrNull(), it, result, ::onError)
         }, onNoCopy = {
             handleNoCopy(result)
-        })
+        }, onError = ::onError)
     }
-}
-
-private fun isDataCopyMethod(
-        thisDescriptor: ClassDescriptor,
-        name: Name
-): Boolean {
-    return thisDescriptor.isData && name.asString() == "copy"
 }
 
 private fun handleByAnnotation(
         thisDescriptor: ClassDescriptor,
         name: Name,
         onLeastVisibleCopy: (Visibility) -> Unit,
-        onNoCopy: () -> Unit
+        onNoCopy: () -> Unit,
+        onError: (String) -> Unit
 ) {
 
     val hasNoCopy = thisDescriptor.hasNoCopy()
@@ -54,12 +52,14 @@ private fun handleByAnnotation(
 
     if (!thisDescriptor.isData) {
 
-        if (hasLeastVisibleCopy) {
-            error("Only data classes could be annotated with @LeastVisibleCopy (${thisDescriptor.fqNameOrNull()})")
+        if (hasNoCopy) {
+            onError("Only data classes could be annotated with @NoCopy (${thisDescriptor.fqNameOrNull()})")
+            return
         }
 
-        if (hasNoCopy) {
-            error("Only data classes could be annotated with @NoCopy (${thisDescriptor.fqNameOrNull()})")
+        if (hasLeastVisibleCopy) {
+            onError("Only data classes could be annotated with @LeastVisibleCopy (${thisDescriptor.fqNameOrNull()})")
+            return
         }
 
         return
@@ -70,56 +70,72 @@ private fun handleByAnnotation(
     }
 
     if (hasLeastVisibleCopy && hasNoCopy) {
-        error("You cannot have @LeastVisibleCopy and @NoCopy on the same data class (${thisDescriptor.fqNameOrNull()})")
+        onError("You cannot have @NoCopy and @LeastVisibleCopy on the same data class (${thisDescriptor.fqNameOrNull()})")
+        return
     }
 
     when {
         hasNoCopy -> onNoCopy()
-        hasLeastVisibleCopy -> onLeastVisibleCopy(thisDescriptor.constructors.findLeastVisible().visibility)
+        hasLeastVisibleCopy -> thisDescriptor.constructors.findLeastVisible(onError)?.visibility?.let(onLeastVisibleCopy)
     }
-}
-
-private fun handleNoCopy(result: MutableCollection<SimpleFunctionDescriptor>) {
-    result.clear()
 }
 
 private fun handleLeastVisibleCopy(
         fqName: FqName?,
         visibility: Visibility,
-        result: MutableCollection<SimpleFunctionDescriptor>
+        result: MutableCollection<SimpleFunctionDescriptor>,
+        onError: (String) -> Unit
 ) {
 
     if (visibility == Visibilities.INTERNAL) {
-        error("Mirroring internal constructors is not currently supported, try @NoCopy instead ($fqName)")
+        onError("Mirroring internal constructors is not currently supported, try @NoCopy instead ($fqName)")
+        return
     }
 
     val newCopy = result.firstOrNull()
             ?.createCustomCopy { it.newCopyBuilder().setVisibility(visibility) }
 
     result.clear()
-    newCopy?.let(result::add) ?: error("Couldn't mirror constructor ($fqName)")
+    newCopy?.let(result::add) ?: onError("Couldn't mirror constructor ($fqName)")
+}
+
+private fun Collection<ClassConstructorDescriptor>.findLeastVisible(
+        onError: (String) -> Unit
+): ClassConstructorDescriptor? {
+    return this.minBy {
+        it.visibility.asInt() ?: onError("Unrecognized visibility: ${it.visibility}").run { 99 }
+    } ?: onError("Couldn't find least visible constructor").run { null }
+}
+
+private fun isDataCopyMethod(
+        thisDescriptor: ClassDescriptor,
+        name: Name
+): Boolean {
+    return thisDescriptor.isData && name.asString() == "copy"
+}
+
+private fun handleNoCopy(result: MutableCollection<SimpleFunctionDescriptor>) {
+    result.clear()
 }
 
 private fun Annotated.hasAnnotation(annotation: FqName): Boolean {
     return annotations.hasAnnotation(annotation)
 }
 
-private fun Collection<ClassConstructorDescriptor>.findLeastVisible(): ClassConstructorDescriptor {
-    return this.minBy {
-        when (val v = it.visibility) {
-            Visibilities.PRIVATE -> 1
-            Visibilities.PROTECTED -> 2
-            Visibilities.INTERNAL -> 3
-            Visibilities.PUBLIC -> 4
-            else -> error("Unrecognized visibility: $v")
-        }
-    } ?: error("Couldn't find least visible constructor")
+private fun ClassDescriptor.hasNoCopy(): Boolean {
+    return this.hasAnnotation(FqName(NO_COPY_ANNOTATION))
 }
 
 private fun ClassDescriptor.hasLeastVisibleCopy(): Boolean {
     return this.hasAnnotation(FqName(LEAST_VISIBLE_COPY_ANNOTATION))
 }
 
-private fun ClassDescriptor.hasNoCopy(): Boolean {
-    return this.hasAnnotation(FqName(NO_COPY_ANNOTATION))
+private fun Visibility.asInt(): Int? {
+    return when (this) {
+        Visibilities.PRIVATE -> 1
+        Visibilities.PROTECTED -> 2
+        Visibilities.INTERNAL -> 3
+        Visibilities.PUBLIC -> 4
+        else -> null
+    }
 }
