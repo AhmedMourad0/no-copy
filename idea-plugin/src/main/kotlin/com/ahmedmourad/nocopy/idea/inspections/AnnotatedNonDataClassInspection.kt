@@ -3,7 +3,7 @@ package com.ahmedmourad.nocopy.idea.inspections
 import com.ahmedmourad.nocopy.core.LEAST_VISIBLE_COPY_ANNOTATION
 import com.ahmedmourad.nocopy.core.NO_COPY_ANNOTATION
 import com.ahmedmourad.nocopy.idea.inspections.fixes.ConvertToDataClassFix
-import com.ahmedmourad.nocopy.idea.inspections.fixes.RemoveAllClassAnnotationFix
+import com.ahmedmourad.nocopy.idea.inspections.fixes.RemoveAllClassAnnotationsFix
 import com.ahmedmourad.nocopy.idea.inspections.fixes.RemoveClassAnnotationFix
 import com.ahmedmourad.nocopy.idea.utils.hasLeastVisibleCopy
 import com.ahmedmourad.nocopy.idea.utils.hasNoCopy
@@ -46,7 +46,7 @@ class AnnotatedNonDataClassInspection : AbstractKotlinInspection() {
                 if (annotations.size == 1) {
                     quickFixes += RemoveClassAnnotationFix(annotations[0])
                 } else if (annotations.size > 1) {
-                    quickFixes += RemoveAllClassAnnotationFix(annotations)
+                    quickFixes += RemoveAllClassAnnotationsFix(annotations)
                 }
 
                 val identifier = klass.nameIdentifier!!
