@@ -12,7 +12,7 @@
 
     <extensions defaultExtensionNs="org.jetbrains.kotlin">
         <syntheticResolveExtension
-                implementation="com.ahmedmourad.nocopy.idea.NoCopyIdeSyntheticResolveExtension"
+                implementation="com.ahmedmourad.nocopy.idea.extensions.NoCopyIdeSyntheticResolveExtension"
                 order="first"
         />
     </extensions>
@@ -21,29 +21,29 @@
 
         <lang.inspectionSuppressor
                 language="kotlin"
-                implementationClass="com.ahmedmourad.nocopy.idea.DataClassPrivateConstructorInspectionSuppressor"
+                implementationClass="com.ahmedmourad.nocopy.idea.suppressors.DataClassPrivateConstructorInspectionSuppressor"
         />
 
         <localInspection
                 language="kotlin"
-                displayName="NoCopy: Using multiple annotations on the same data class."
+                displayName="NoCopy: Using multiple no-copy annotations on the same data class."
                 groupPath="Kotlin"
                 groupBundle="messages.InspectionsBundle"
                 groupKey="group.names.probable.bugs"
                 enabledByDefault="true"
                 level="ERROR"
-                implementationClass=""
+                implementationClass="com.ahmedmourad.nocopy.idea.inspections.AnnotationConflictInspection"
         />
 
         <localInspection
                 language="kotlin"
-                displayName="NoCopy: Using data class annotations on a non-data class."
+                displayName="NoCopy: no-copy annotations can only be applied to data classes."
                 groupPath="Kotlin"
                 groupBundle="messages.InspectionsBundle"
                 groupKey="group.names.probable.bugs"
                 enabledByDefault="true"
                 level="ERROR"
-                implementationClass=""
+                implementationClass="com.ahmedmourad.nocopy.idea.inspections.AnnotatedNonDataClassInspection"
         />
 
         <localInspection
@@ -55,7 +55,8 @@
                 enabledByDefault="true"
                 level="WARNING"
                 suppressId="NoCopyDataClassPrivateConstructor"
-                implementationClass="org.jetbrains.kotlin.idea.inspections.DataClassPrivateConstructorInspection"
+                shortName="NoCopyDataClassPrivateConstructor"
+                implementationClass="com.ahmedmourad.nocopy.idea.inspections.DataClassPrivateConstructorInspection"
         />
 
     </extensions>
