@@ -16,9 +16,6 @@ class NoCopyGradleSubplugin : KotlinGradleSubplugin<AbstractCompile> {
         return project.plugins.hasPlugin(NoCopyGradlePlugin::class.java)
     }
 
-    /**
-     * Just needs to be consistent with the key for NoCopyCommandLineProcessor#pluginId
-     */
     override fun getCompilerPluginId(): String = PLUGIN_ID
 
     override fun getPluginArtifact(): SubpluginArtifact = SubpluginArtifact(
