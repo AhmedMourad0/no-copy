@@ -18,14 +18,14 @@ class RemoveAllClassAnnotationsFix(private val annotations: List<FqName>) : Loca
 
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
 
-        val containingClass = descriptor.startElement.getParentOfType<KtClass>(strict = false)
+        val containingClass = descriptor.startElement.getParentOfType<KtClass>(strict = false) ?: return
 
         if (!FileModificationService.getInstance().preparePsiElementForWrite(containingClass)) {
             return
         }
 
         annotations.forEach {
-            containingClass?.findAnnotation(it)?.deleteElementAndCleanParent()
+            containingClass.findAnnotation(it)?.deleteElementAndCleanParent()
         }
     }
 }

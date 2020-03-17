@@ -17,12 +17,12 @@ class AnnotateClassWithFix(private val annotation: FqName) : LocalQuickFix {
 
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
 
-        val containingClass = descriptor.startElement.getParentOfType<KtClass>(strict = false)
+        val containingClass = descriptor.startElement.getParentOfType<KtClass>(strict = false) ?: return
 
         if (!FileModificationService.getInstance().preparePsiElementForWrite(containingClass)) {
             return
         }
 
-        containingClass?.addAnnotation(annotation)
+        containingClass.addAnnotation(annotation)
     }
 }

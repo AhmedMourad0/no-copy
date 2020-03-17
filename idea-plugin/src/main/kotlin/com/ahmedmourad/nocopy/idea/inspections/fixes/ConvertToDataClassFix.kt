@@ -16,12 +16,12 @@ class ConvertToDataClassFix : LocalQuickFix {
 
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
 
-        val containingClass = descriptor.startElement.getParentOfType<KtClass>(strict = false)
+        val containingClass = descriptor.startElement.getParentOfType<KtClass>(strict = false) ?: return
 
         if (!FileModificationService.getInstance().preparePsiElementForWrite(containingClass)) {
             return
         }
 
-        containingClass?.addModifier(KtTokens.DATA_KEYWORD)
+        containingClass.addModifier(KtTokens.DATA_KEYWORD)
     }
 }
