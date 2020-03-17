@@ -14,18 +14,17 @@ import com.intellij.psi.PsiElementVisitor
 import org.jetbrains.kotlin.idea.inspections.AbstractKotlinInspection
 import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.name.FqName
-import org.jetbrains.kotlin.psi.KtClass
-import org.jetbrains.kotlin.psi.classVisitor
-import org.jetbrains.kotlin.psi.psiUtil.isAbstract
-import org.jetbrains.kotlin.psi.psiUtil.isObjectLiteral
+import org.jetbrains.kotlin.psi.KtClassOrObject
+import org.jetbrains.kotlin.psi.classOrObjectVisitor
+import org.jetbrains.kotlin.util.isOrdinaryClass
 
 class AnnotatedNonDataClassInspection : AbstractKotlinInspection() {
 
     override fun buildVisitor(holder: ProblemsHolder, isOnTheFly: Boolean): PsiElementVisitor {
 
-        return classVisitor { klass ->
+        return classOrObjectVisitor { klass ->
 
-            if (!klass.isData() && (klass.hasNoCopy() || klass.hasLeastVisibleCopy())) {
+            if (!klass.hasModifier(KtTokens.DATA_KEYWORD) && (klass.hasNoCopy() || klass.hasLeastVisibleCopy())) {
 
                 val quickFixes = mutableListOf<LocalQuickFix>()
 
@@ -49,7 +48,7 @@ class AnnotatedNonDataClassInspection : AbstractKotlinInspection() {
                     quickFixes += RemoveAllClassAnnotationsFix(annotations)
                 }
 
-                val identifier = klass.nameIdentifier!!
+                val identifier = klass.nameIdentifier ?: return@classOrObjectVisitor
                 val problemDescriptor = holder.manager.createProblemDescriptor(
                         identifier,
                         identifier,
@@ -65,14 +64,13 @@ class AnnotatedNonDataClassInspection : AbstractKotlinInspection() {
     }
 }
 
-private fun KtClass.canBeData(): Boolean {
-    val cannotBeData = this.isInterface() ||
-            this.isEnum() ||
-            this.isInner() ||
-            this.isSealed() ||
-            this.isAbstract() ||
-            this.isAnnotation() ||
-            this.hasModifier(KtTokens.INLINE_KEYWORD) ||
-            this.isObjectLiteral()
-    return !cannotBeData
+private fun KtClassOrObject.canBeData(): Boolean {
+    return this.isOrdinaryClass && arrayOf(
+            KtTokens.ENUM_KEYWORD,
+            KtTokens.INNER_KEYWORD,
+            KtTokens.SEALED_KEYWORD,
+            KtTokens.ABSTRACT_KEYWORD,
+            KtTokens.INLINE_KEYWORD,
+            KtTokens.ANNOTATION_KEYWORD
+    ).none(this::hasModifier)
 }
