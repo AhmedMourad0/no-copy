@@ -20,7 +20,7 @@ class AnnotationConflictInspection : AbstractKotlinInspection() {
 
             if (klass.isData() && klass.hasNoCopy() && klass.hasLeastVisibleCopy()) {
 
-                val identifier = klass.nameIdentifier!!
+                val identifier = klass.nameIdentifier ?: return@classVisitor
 
                 val problemDescriptor = holder.manager.createProblemDescriptor(
                         identifier,

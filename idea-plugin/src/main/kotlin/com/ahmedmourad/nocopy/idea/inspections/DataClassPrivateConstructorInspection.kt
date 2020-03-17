@@ -20,9 +20,9 @@ class DataClassPrivateConstructorInspection : AbstractKotlinInspection() {
 
         return classVisitor { klass ->
 
-            val primaryConstructor = klass.primaryConstructor
+            val primaryConstructor = klass.primaryConstructor ?: return@classVisitor
 
-            if (klass.isData() && primaryConstructor?.isPrivate() == true) {
+            if (klass.isData() && primaryConstructor.isPrivate()) {
 
                 if (klass.hasNoCopy() || klass.hasLeastVisibleCopy()) {
                     return@classVisitor
