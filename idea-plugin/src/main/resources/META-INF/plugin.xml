@@ -5,7 +5,7 @@
 
     <description><![CDATA[
     The IDEA plugin for no-copy, a Kotlin compiler plugin that enables using data classes as value-based classes.<br>
-    <a href="https://github.com/AhmedMourad0/NoCopy">Visit on Github</a>
+    <a href="https://github.com/AhmedMourad0/no-copy">Visit on Github</a>
     ]]></description>
 
     <depends>org.jetbrains.kotlin</depends>
