@@ -29,6 +29,15 @@ tasks.withType(KotlinCompile).all {
     }
 }
 
+jar {
+    manifest {
+        attributes["Specification-Title"] = project.name
+        attributes["Specification-Version"] = project.version
+        attributes["Implementation-Title"] = "com.ahmedmourad.nocopy.nocopy-idea-plugin"
+        attributes["Implementation-Version"] = project.version
+    }
+    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+}
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.61"

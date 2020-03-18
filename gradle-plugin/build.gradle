@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 buildscript {
 
     Properties props = new Properties()
@@ -41,10 +43,26 @@ gradlePlugin {
     }
 }
 
+tasks.withType(KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+jar {
+    manifest {
+        attributes["Specification-Title"] = project.name
+        attributes["Specification-Version"] = project.version
+        attributes["Implementation-Title"] = "com.ahmedmourad.nocopy.nocopy-gradle-plugin"
+        attributes["Implementation-Version"] = project.version
+    }
+}
+
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-gradle-plugin-api:$kotlin_version"
     compileOnly "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    implementation "io.github.classgraph:classgraph:4.8.65"
 
     implementation "com.ahmedmourad.nocopy:nocopy-core"
 }
