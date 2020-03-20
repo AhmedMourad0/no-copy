@@ -71,9 +71,9 @@ data class User(val name: String, val phoneNumber: String) {
 User("Ahmed", "+201234567890").copy(phoneNumber = "Happy birthday!") // copy is private in User
 ```
 
-## Installation (not published yet)
+## Installation
 
-Apply the gradle plugin:
+- Apply the gradle plugin:
 
 ```gradle
 buildscript {
@@ -85,16 +85,24 @@ buildscript {
 apply plugin: 'com.ahmedmourad.nocopy.nocopy-gradle-plugin'
 ```
 
+- Install the IDEA plugin *`File -> Settings -> plugins -> Marketplace -> Kotlin NoCopy`*
+
+- Disable the default inspection `File -> Settings -> Editor ->
+ Inspections -> Kotlin -> Probably bugs -> Private data class constructor is...`. Currently, you have to do
+  this manually due to a bug with the Kotlin plugin, [upvote](https://youtrack.jetbrains.com/issue/KT-37576).
+
 ## Caveats
 
 - Mirroring internal constructors is not currently supported. For now, consider using `@NoCopy` instead
- and providing your own cloning method. *(Fix planned in a future release)*
+ and providing your own cloning method, there are inspections included that will warn you when you
+  do this. *(Fix planned in a future release)*
  
 - For now, you cannot have methods named `copy` inside your `@NoCopy` or `@LeastVisibleCopy` annotated classes or
- they will be affected by the plugin as well. *(Fix planned in a future release)*
+ they will be affected by the plugin as well, there are inspections included that will
+  warn you when you do this. *(Fix planned in a future release)*
 
 - Kotlin compiler plugins are not a stable API. Compiled outputs from this plugin should be stable,
-but usage in newer versions of kotlinc are not guaranteed to be stable.
+ but usage in newer versions of kotlinc are not guaranteed to be stable.
 
 ## Versions
 
@@ -104,13 +112,12 @@ but usage in newer versions of kotlinc are not guaranteed to be stable.
 
 ## Road Map
 
-- Replace default data class private constructor inspection with our own
-- Publish 0.1.0
-- Allow adding functions named `copy` to `@NoCopy` and `@LeastVisibleCopy` annotated data classes
+- Allow adding functions named `copy` to `@NoCopy` and `@LeastVisibleCopy` annotated data classes.
 - Support mirroring internal constructors.
-- Publish 0.1.1
-- Migrate to Arrow-Meta
-- Go Multiplatform
+- Migrate to Arrow-Meta.
+- Auto install IDEA plugin.
+- Go Multiplatform.
+- Add annotation to convert regular classes to value-based classes
 
 License
 -------
