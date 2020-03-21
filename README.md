@@ -108,7 +108,7 @@ apply plugin: 'com.ahmedmourad.nocopy.nocopy-gradle-plugin'
 
 | Kotlin Version | NoCopy Version |
 | :------------: | :------------: |
-| 1.3.61 | 0.1.0 (current version)
+| 1.3.61 | 0.1.0 (not yet released)
 
 ## Road Map
 
@@ -118,6 +118,7 @@ apply plugin: 'com.ahmedmourad.nocopy.nocopy-gradle-plugin'
 - Auto install IDEA plugin.
 - Go Multiplatform.
 - Add annotation to convert regular classes to value-based classes
+- Move to Kotlin DSL for Gradle build scripts
 
 License
 -------
