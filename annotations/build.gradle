@@ -42,7 +42,7 @@ jar {
     manifest {
         attributes["Specification-Title"] = project.name
         attributes["Specification-Version"] = project.version
-        attributes["Implementation-Title"] = "com.ahmedmourad.nocopy.nocopy-annotations"
+        attributes["Implementation-Title"] = "dev.ahmedmourad.nocopy.nocopy-annotations"
         attributes["Implementation-Version"] = project.version
     }
 }

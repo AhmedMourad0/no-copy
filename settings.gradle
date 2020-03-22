@@ -6,24 +6,24 @@ includeBuild("idea-plugin")
 
 includeBuild("gradle-plugin") {
     dependencySubstitution {
-        substitute module("com.ahmedmourad.nocopy:nocopy-gradle-plugin") with project(":")
+        substitute module("dev.ahmedmourad.nocopy:nocopy-gradle-plugin") with project(":")
     }
 }
 
 includeBuild("compiler-plugin") {
     dependencySubstitution {
-        substitute module("com.ahmedmourad.nocopy:nocopy-compiler-plugin") with project(":")
+        substitute module("dev.ahmedmourad.nocopy:nocopy-compiler-plugin") with project(":")
     }
 }
 
 includeBuild("core") {
     dependencySubstitution {
-        substitute module("com.ahmedmourad.nocopy:nocopy-core") with project(":")
+        substitute module("dev.ahmedmourad.nocopy:nocopy-core") with project(":")
     }
 }
 
 includeBuild("annotations") {
     dependencySubstitution {
-        substitute module("com.ahmedmourad.nocopy:nocopy-annotations") with project(":")
+        substitute module("dev.ahmedmourad.nocopy:nocopy-annotations") with project(":")
     }
 }

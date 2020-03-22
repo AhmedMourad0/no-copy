@@ -37,8 +37,8 @@ repositories {
 gradlePlugin {
     plugins {
         noCopyPlugin {
-            id = "com.ahmedmourad.nocopy.nocopy-gradle-plugin"
-            implementationClass = "com.ahmedmourad.nocopy.gradle.NoCopyGradlePlugin"
+            id = "dev.ahmedmourad.nocopy.nocopy-gradle-plugin"
+            implementationClass = "dev.ahmedmourad.nocopy.gradle.NoCopyGradlePlugin"
         }
     }
 }
@@ -53,7 +53,7 @@ jar {
     manifest {
         attributes["Specification-Title"] = project.name
         attributes["Specification-Version"] = project.version
-        attributes["Implementation-Title"] = "com.ahmedmourad.nocopy.nocopy-gradle-plugin"
+        attributes["Implementation-Title"] = "dev.ahmedmourad.nocopy.nocopy-gradle-plugin"
         attributes["Implementation-Version"] = project.version
     }
 }
@@ -64,5 +64,5 @@ dependencies {
     compileOnly "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     implementation "io.github.classgraph:classgraph:4.8.65"
 
-    implementation "com.ahmedmourad.nocopy:nocopy-core"
+    implementation "dev.ahmedmourad.nocopy:nocopy-core"
 }

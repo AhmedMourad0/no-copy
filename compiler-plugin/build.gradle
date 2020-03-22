@@ -43,7 +43,7 @@ jar {
     manifest {
         attributes["Specification-Title"] = project.name
         attributes["Specification-Version"] = project.version
-        attributes["Implementation-Title"] = "com.ahmedmourad.nocopy.nocopy-compiler-plugin"
+        attributes["Implementation-Title"] = "dev.ahmedmourad.nocopy.nocopy-compiler-plugin"
         attributes["Implementation-Version"] = project.version
     }
 }
@@ -52,5 +52,10 @@ dependencies {
     compileOnly "org.jetbrains.kotlin:kotlin-compiler-embeddable:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
-    api "com.ahmedmourad.nocopy:nocopy-core"
+    api "dev.ahmedmourad.nocopy:nocopy-core"
+
+    testImplementation "org.jetbrains.kotlin:kotlin-compiler-embeddable:$kotlin_version"
+    testImplementation "com.github.tschuchortdev:kotlin-compile-testing:1.2.5"
+    testImplementation "junit:junit:4.13"
+    testImplementation "com.google.truth:truth:1.0.1"
 }
