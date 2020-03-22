@@ -78,11 +78,11 @@ User("Ahmed", "+201234567890").copy(phoneNumber = "Happy birthday!") // copy is 
 ```gradle
 buildscript {
   dependencies {
-    classpath "com.ahmedmourad.nocopy:nocopy-gradle-plugin:0.1.0"
+    classpath "dev.ahmedmourad.nocopy:nocopy-gradle-plugin:0.1.0"
   }  
 }
 
-apply plugin: 'com.ahmedmourad.nocopy.nocopy-gradle-plugin'
+apply plugin: 'dev.ahmedmourad.nocopy.nocopy-gradle-plugin'
 ```
 
 - Install the IDEA plugin *`File -> Settings -> plugins -> Marketplace -> Kotlin NoCopy`*
