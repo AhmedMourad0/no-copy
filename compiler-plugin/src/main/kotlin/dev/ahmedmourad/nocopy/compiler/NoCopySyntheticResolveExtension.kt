@@ -92,11 +92,11 @@ private fun handleLeastVisibleCopy(
         return
     }
 
-    val newCopy = result.firstOrNull()
-            ?.createCustomCopy { it.newCopyBuilder().setVisibility(visibility) }
-
-    result.clear()
-    newCopy?.let(result::add) ?: onError("Couldn't mirror constructor ($fqName)")
+    result.lastOrNull()?.let { lastDescriptor ->
+        val newCopy = lastDescriptor.createCustomCopy { it.newCopyBuilder().setVisibility(visibility) }
+        result.remove(lastDescriptor)
+        result.add(newCopy)
+    }
 }
 
 private fun Collection<ClassConstructorDescriptor>.findLeastVisible(
@@ -112,13 +112,11 @@ private fun isDataCopyMethod(
         name: Name,
         result: MutableCollection<SimpleFunctionDescriptor>
 ): Boolean {
-    return thisDescriptor.isData &&
-            name.asString() == "copy"// &&
-    //result.firstOrNull()?.hasGenerated() == true
+    return thisDescriptor.isData && name.asString() == "copy"
 }
 
 private fun handleNoCopy(result: MutableCollection<SimpleFunctionDescriptor>) {
-    result.clear()
+    result.lastOrNull()?.let(result::remove)
 }
 
 private fun Annotated.hasAnnotation(annotation: FqName): Boolean {
@@ -131,10 +129,6 @@ private fun ClassDescriptor.hasNoCopy(): Boolean {
 
 private fun ClassDescriptor.hasLeastVisibleCopy(): Boolean {
     return this.hasAnnotation(FqName(LEAST_VISIBLE_COPY_ANNOTATION))
-}
-
-private fun SimpleFunctionDescriptor.hasGenerated(): Boolean {
-    return this.hasAnnotation(FqName(GENERATED_ANNOTATION))
 }
 
 private fun Visibility.asInt(): Int? {

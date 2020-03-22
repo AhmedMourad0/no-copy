@@ -9,6 +9,7 @@ import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.jetbrains.kotlin.extensions.ProjectExtensionDescriptor
 import org.jetbrains.kotlin.resolve.extensions.SyntheticResolveExtension
 
+//TODO: use message collector instead of error
 class NoCopyPlugin : ComponentRegistrar {
 
     override fun registerProjectComponents(
