@@ -97,10 +97,6 @@ apply plugin: 'dev.ahmedmourad.nocopy.nocopy-gradle-plugin'
  and providing your own cloning method, there are inspections included that will warn you when you
   do this. *(Fix planned in a future release)*
  
-- For now, you cannot have methods named `copy` inside your `@NoCopy` or `@LeastVisibleCopy` annotated classes or
- they will be affected by the plugin as well, there are inspections included that will
-  warn you when you do this. *(Fix planned in a future release)*
-
 - Kotlin compiler plugins are not a stable API. Compiled outputs from this plugin should be stable,
  but usage in newer versions of kotlinc are not guaranteed to be stable.
 
@@ -112,7 +108,6 @@ apply plugin: 'dev.ahmedmourad.nocopy.nocopy-gradle-plugin'
 
 ## Road Map
 
-- Allow adding functions named `copy` to `@NoCopy` and `@LeastVisibleCopy` annotated data classes.
 - Support mirroring internal constructors.
 - Migrate to Arrow-Meta.
 - Auto install IDEA plugin.
