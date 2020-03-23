@@ -65,19 +65,6 @@
 
         <localInspection
                 language="kotlin"
-                displayName="NoCopy: Having `copy` named methods in no-copy annotated classes is not yet supported."
-                groupPath="Kotlin"
-                groupBundle="messages.InspectionsBundle"
-                groupKey="group.names.probable.bugs"
-                enabledByDefault="true"
-                level="ERROR"
-                suppressId="NoCopyCopyNamedFunction"
-                shortName="NoCopyCopyNamedFunction"
-                implementationClass="dev.ahmedmourad.nocopy.idea.inspections.CopyNamedFunctionInspection"
-        />
-
-        <localInspection
-                language="kotlin"
                 displayName="NoCopy: Mirroring internal constructors is not yet supported."
                 groupPath="Kotlin"
                 groupBundle="messages.InspectionsBundle"
