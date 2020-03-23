@@ -4,25 +4,20 @@ import dev.ahmedmourad.nocopy.annotations.NoCopy
 
 //@LeastVisibleCopy
 @NoCopy
-data class User private constructor(
-        val name: String,
-        val email: String,
-        val phoneNumber: String
+data class PhoneNumber private constructor(
+        val value: String
 ) {
-    constructor() : this("", "", "")
+    fun copy(value: String) {
 
-    fun fcsamir() = name + email
+    }
 
-    //        fun copy(name: String="", email: String="", phoneNumber: String="") {
-//
-//        }
     companion object {
-        fun of(name: String, email: String, phoneNumber: String): User {
-            return User(name, email, phoneNumber)
+        fun of(value: String): PhoneNumber {
+            return PhoneNumber(value)
         }
     }
 }
 
 fun main() {
-    println(User.of("", "", "").copy(name = "scs"))
+    println(PhoneNumber.of("+201234567890").copy(value = "Happy Birthday!"))
 }
