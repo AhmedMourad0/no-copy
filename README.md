@@ -106,7 +106,7 @@ apply plugin: 'dev.ahmedmourad.nocopy.nocopy-gradle-plugin'
 | :------------: | :------------: |
 | 1.3.61 | 0.1.0 (not yet released)
 
-## Road Map
+## Roadmap
 
 - Support mirroring internal constructors.
 - Migrate to Arrow-Meta.
