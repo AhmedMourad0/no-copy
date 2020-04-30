@@ -1,15 +1,13 @@
 package dev.ahmedmourad.nocopy.sample
 
-import dev.ahmedmourad.nocopy.annotations.NoCopy
-
-//@LeastVisibleCopy
-@NoCopy
+//@NoCopy
 data class PhoneNumber private constructor(
         val value: String
 ) {
-    fun copy(value: String) {
 
-    }
+//    fun copy(value: String): Unit {
+//
+//    }
 
     companion object {
         fun of(value: String): PhoneNumber {

@@ -1,4 +1,5 @@
 
+apply plugin: "java"
 apply plugin: "org.jetbrains.kotlin.jvm"
 apply plugin: "dev.ahmedmourad.nocopy.nocopy-gradle-plugin"
 
