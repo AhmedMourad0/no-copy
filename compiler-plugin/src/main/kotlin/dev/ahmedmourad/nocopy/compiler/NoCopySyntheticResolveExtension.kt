@@ -2,11 +2,8 @@ package dev.ahmedmourad.nocopy.compiler
 
 import dev.ahmedmourad.nocopy.core.LEAST_VISIBLE_COPY_ANNOTATION
 import dev.ahmedmourad.nocopy.core.NO_COPY_ANNOTATION
-import org.jetbrains.kotlin.cli.common.messages.CompilerMessageSeverity
 import org.jetbrains.kotlin.cli.common.messages.MessageCollector
-import org.jetbrains.kotlin.cli.common.messages.MessageUtil
 import org.jetbrains.kotlin.codegen.coroutines.createCustomCopy
-import org.jetbrains.kotlin.com.intellij.psi.PsiElement
 import org.jetbrains.kotlin.descriptors.*
 import org.jetbrains.kotlin.descriptors.annotations.Annotated
 import org.jetbrains.kotlin.js.resolve.diagnostics.findPsi
@@ -18,14 +15,6 @@ import org.jetbrains.kotlin.resolve.extensions.SyntheticResolveExtension
 open class NoCopySyntheticResolveExtension(
         private val messageCollector: MessageCollector?
 ) : SyntheticResolveExtension {
-
-    private fun error(message: String, element: PsiElement?) {
-        messageCollector?.report(
-                CompilerMessageSeverity.ERROR,
-                message,
-                MessageUtil.psiElementToMessageLocation(element)
-        )
-    }
 
     override fun generateSyntheticMethods(
             thisDescriptor: ClassDescriptor,
@@ -42,7 +31,7 @@ open class NoCopySyntheticResolveExtension(
 
         val generatedCopyMethodIndex = result.findGeneratedCopyMethodIndex(thisDescriptor)
         if (generatedCopyMethodIndex == null) {
-            error("Cannot find generated copy method!", thisDescriptor.findPsi())
+            messageCollector?.error("Cannot find generated copy method!", thisDescriptor.findPsi())
             return
         }
 
@@ -75,7 +64,10 @@ open class NoCopySyntheticResolveExtension(
                 hasLeastVisibleCopy -> "@LeastVisibleCopy"
                 else -> "no-copy annotations"
             }
-            error("Only data classes could be annotated with $annotation", classDescriptor.findPsi())
+            messageCollector?.error(
+                    "Only data classes could be annotated with $annotation",
+                    classDescriptor.findPsi()
+            )
             return
         }
 
@@ -84,7 +76,10 @@ open class NoCopySyntheticResolveExtension(
         }
 
         if (hasLeastVisibleCopy && hasNoCopy) {
-            error("You cannot have @NoCopy and @LeastVisibleCopy on the same data class", classDescriptor.findPsi())
+            messageCollector?.error(
+                    "You cannot have @NoCopy and @LeastVisibleCopy on the same data class",
+                    classDescriptor.findPsi()
+            )
             return
         }
 
@@ -105,7 +100,10 @@ open class NoCopySyntheticResolveExtension(
     ) {
 
         if (visibility == Visibilities.INTERNAL) {
-            error("Mirroring internal constructors is not currently supported, try @NoCopy instead", classDescriptor.findPsi())
+            messageCollector?.error(
+                    "Mirroring internal constructors is not currently supported, try @NoCopy instead",
+                    classDescriptor.findPsi()
+            )
             return
         }
 
@@ -120,8 +118,14 @@ open class NoCopySyntheticResolveExtension(
             classDescriptor: ClassDescriptor
     ): ClassConstructorDescriptor? {
         return this.minBy {
-            it.visibility.asInt() ?: error("Unrecognized visibility: ${it.visibility}", it.findPsi()).run { 99 }
-        } ?: error("Couldn't find least visible constructor", classDescriptor.findPsi()).run { null }
+            it.visibility.asInt() ?: messageCollector?.error(
+                    "Unrecognized visibility: ${it.visibility}",
+                    it.findPsi()
+            ).run { 99 }
+        } ?: messageCollector?.error(
+                "Couldn't find least visible constructor",
+                classDescriptor.findPsi()
+        ).run { null }
     }
 
     private fun isDataCopyMethod(
