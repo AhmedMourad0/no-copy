@@ -33,14 +33,6 @@ class NoCopyPlugin : ComponentRegistrar {
                 project,
                 NoCopySyntheticResolveExtension(messageCollector)
         )
-//        DeclarationAttributeAltererExtension.registerExtensionAsFirst(
-//                project,
-//                NoCopyDeclarationAttributeAltererExtension()
-//        )
-//        ExpressionCodegenExtension.registerExtensionAsFirst(
-//                project,
-//                NoCopyCodegenExtension()
-//        )
     }
 }
 
