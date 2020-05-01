@@ -73,15 +73,22 @@ User("Ahmed", "+201234567890").copy(phoneNumber = "Happy birthday!") // copy is 
 
 ## Installation
 
-- Apply the gradle plugin:
+- In your project-level `build.gradle`:
 
 ```gradle
 buildscript {
-  dependencies {
-    classpath "dev.ahmedmourad.nocopy:nocopy-gradle-plugin:0.1.0"
-  }  
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "dev.ahmedmourad.nocopy:nocopy-gradle-plugin:0.1.0"
+    }  
 }
+```
 
+- In your module-level `build.gradle`:
+
+```gradle
 apply plugin: 'dev.ahmedmourad.nocopy.nocopy-gradle-plugin'
 ```
 
@@ -94,8 +101,11 @@ apply plugin: 'dev.ahmedmourad.nocopy.nocopy-gradle-plugin'
 ## Caveats
 
 - Mirroring internal constructors is not currently supported. For now, consider using `@NoCopy` instead
- and providing your own cloning method, there are inspections included that will warn you when you
+ and providing your own cloning method, there are inspections included that will give you an error when you
   do this. *(Fix planned in a future release)*
+  
+- For now, you cannot have methods named `copy` with the same signature (return type included) in
+ your `@NoCopy` annotated data class or you will get ide and compiler errors. *(Fix planned in a future release)*
  
 - Kotlin compiler plugins are not a stable API. Compiled outputs from this plugin should be stable,
  but usage in newer versions of kotlinc are not guaranteed to be stable.
@@ -104,11 +114,12 @@ apply plugin: 'dev.ahmedmourad.nocopy.nocopy-gradle-plugin'
 
 | Kotlin Version | NoCopy Version |
 | :------------: | :------------: |
-| 1.3.61 | 0.1.0 (not yet released)
+| 1.3.72 | 0.1.0
 
 ## Roadmap
 
 - Support mirroring internal constructors.
+- Support having `copy` named methods in `@NoCopy` annotated data classes.
 - Migrate to Arrow-Meta.
 - Auto install IDEA plugin.
 - Go Multiplatform.
