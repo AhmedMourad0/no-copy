@@ -30,6 +30,7 @@ apply plugin: "org.jetbrains.kotlin.kapt"
 apply plugin: "com.vanniktech.maven.publish"
 
 repositories {
+    mavenCentral()
     jcenter()
 }
 
@@ -52,7 +53,7 @@ dependencies {
     compileOnly "org.jetbrains.kotlin:kotlin-compiler-embeddable:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
-    api "dev.ahmedmourad.nocopy:nocopy-core"
+    api "dev.ahmedmourad.nocopy:nocopy-core:$project.version"
 
     testImplementation "org.jetbrains.kotlin:kotlin-compiler-embeddable:$kotlin_version"
     testImplementation "com.github.tschuchortdev:kotlin-compile-testing:1.2.5"

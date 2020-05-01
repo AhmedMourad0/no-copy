@@ -64,5 +64,5 @@ dependencies {
     compileOnly "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     implementation "io.github.classgraph:classgraph:4.8.65"
 
-    implementation "dev.ahmedmourad.nocopy:nocopy-core"
+    implementation "dev.ahmedmourad.nocopy:nocopy-core:$project.version"
 }
