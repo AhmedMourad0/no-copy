@@ -8,23 +8,7 @@ import java.io.File
 
 class NoCopyGradlePlugin : Plugin<Project> {
     override fun apply(project: Project) {
-
         project.extensions.create(PLUGIN_NAME, NoCopyGradleExtension::class.java)
-
-//        project.afterEvaluate { p ->
-//            p.tasks.withType(KotlinCompile::class.java).configureEach {
-//                it.kotlinOptions.freeCompilerArgs += "-Xplugin=${classpathOf("compiler-plugin:$VERSION")}"
-//            }
-//        }
-//
-//        project.tasks.register("installNoCopyIdeaPlugin", InstallIdeaPlugin::class.java)
-//
-//        when {
-//            inIdea() && pluginsDirExists() && !ideaPluginExists() -> {
-//                println("NoCopy IDEA Plugin is not installed!")
-//                println("Run 'installNoCopyIdeaPlugin' Gradle task from Intellij IDEA to install it.")
-//            }
-//        }
     }
 }
 
