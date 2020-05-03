@@ -9,6 +9,7 @@
     ]]></description>
 
     <depends>org.jetbrains.kotlin</depends>
+    <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="org.jetbrains.kotlin">
         <syntheticResolveExtension
