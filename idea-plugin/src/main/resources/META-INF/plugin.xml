@@ -1,6 +1,7 @@
 <idea-plugin>
     <id>dev.ahmedmourad.nocopy.idea-plugin</id>
     <name>Kotlin NoCopy</name>
+    <version>0.1.0</version>
     <vendor email="dev.ahmedmourad73744@gmail.com" url="https://www.ahmedmourad.dev">Ahmed Mourad</vendor>
 
     <description><![CDATA[
