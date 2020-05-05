@@ -89,6 +89,7 @@ buildscript {
 - In your module-level `build.gradle`:
 
 ```gradle
+// For each module that needs to use the annotations
 apply plugin: 'dev.ahmedmourad.nocopy.nocopy-gradle-plugin'
 ```
 
