@@ -16,7 +16,7 @@ import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.psi.KtClassOrObject
 import org.jetbrains.kotlin.psi.classOrObjectVisitor
-import org.jetbrains.kotlin.util.isOrdinaryClass
+//import org.jetbrains.kotlin.util.isOrdinaryClass
 
 class AnnotatedNonDataClassInspection : AbstractKotlinInspection() {
 
@@ -65,12 +65,12 @@ class AnnotatedNonDataClassInspection : AbstractKotlinInspection() {
 }
 
 private fun KtClassOrObject.canBeData(): Boolean {
-    return this.isOrdinaryClass && arrayOf(
+    return arrayOf(
             KtTokens.ENUM_KEYWORD,
             KtTokens.INNER_KEYWORD,
             KtTokens.SEALED_KEYWORD,
             KtTokens.ABSTRACT_KEYWORD,
             KtTokens.INLINE_KEYWORD,
             KtTokens.ANNOTATION_KEYWORD
-    ).none(this::hasModifier)
+    ).none(this::hasModifier)// && this.isOrdinaryClass
 }
