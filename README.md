@@ -2,7 +2,7 @@ NoCopy Compiler Plugin
 ========================
 <img src="idea-plugin/src/main/resources/META-INF/pluginIcon.svg" alt="" width="200" />
 A Kotlin compiler plugin that enables using data classes as value-based classes
- by manipulating the `copy` method.
+ by forbidding usage of the `copy` method.
 
 ## Usage
 
@@ -121,6 +121,7 @@ apply plugin: 'dev.ahmedmourad.nocopy.nocopy-gradle-plugin'
 
 - Support mirroring internal constructors.
 - Support having `copy` named methods in `@NoCopy` annotated data classes.
+- Testing.
 - Migrate to Arrow-Meta.
 - Auto install IDEA plugin.
 - Go Multiplatform.
