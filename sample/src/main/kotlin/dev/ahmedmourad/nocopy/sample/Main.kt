@@ -1,6 +1,9 @@
 package dev.ahmedmourad.nocopy.sample
 
-//@NoCopy
+import dev.ahmedmourad.nocopy.annotations.LeastVisibleCopy
+import dev.ahmedmourad.nocopy.annotations.NoCopy
+
+@NoCopy
 data class PhoneNumber private constructor(
         val value: String
 ) {
