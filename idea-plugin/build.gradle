@@ -54,12 +54,12 @@ intellij {
 
 publishPlugin {
     token intellijPublishToken
-    channels 'beta-1'
+    channels "beta"
 }
 
-//runIde {
-//    ideDirectory "C:/Users/Ahmed Mourad/AppData/Local/JetBrains/Toolbox/apps/AndroidStudio/ch-0/192.6392135"
-//}
+runIde {
+    ideDirectory "C:/Users/Ahmed Mourad/AppData/Local/JetBrains/Toolbox/apps/AndroidStudio/ch-0/192.6392135"
+}
 
 patchPluginXml {
     version = project.version
