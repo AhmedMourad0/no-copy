@@ -3,28 +3,9 @@ rootProject.name = "nocopy-compiler-plugin"
 include "sample"
 include "sample-android"
 
-includeBuild("idea-plugin")
-
-includeBuild("gradle-plugin") {
+includeBuild("plugins") {
     dependencySubstitution {
-        substitute module("dev.ahmedmourad.nocopy:nocopy-gradle-plugin") with project(":")
-    }
-}
-
-includeBuild("compiler-plugin") {
-    dependencySubstitution {
-        substitute module("dev.ahmedmourad.nocopy:nocopy-compiler-plugin") with project(":")
-    }
-}
-
-includeBuild("core") {
-    dependencySubstitution {
-        substitute module("dev.ahmedmourad.nocopy:nocopy-core") with project(":")
-    }
-}
-
-includeBuild("annotations") {
-    dependencySubstitution {
-        substitute module("dev.ahmedmourad.nocopy:nocopy-annotations") with project(":")
+        substitute module("dev.ahmedmourad.nocopy:nocopy-gradle-plugin") with project(":gradle-plugin")
+        substitute module("dev.ahmedmourad.nocopy:nocopy-annotations") with project(":annotations")
     }
 }

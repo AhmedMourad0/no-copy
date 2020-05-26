@@ -1,0 +1,8 @@
+rootProject.name = "plugins"
+
+include "core"
+include "annotations"
+include "gradle-plugin"
+include "compiler-plugin"
+include "idea-plugin"
+

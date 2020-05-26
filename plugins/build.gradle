@@ -6,9 +6,8 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:3.6.3"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "dev.ahmedmourad.nocopy:nocopy-gradle-plugin"
+        classpath "com.vanniktech:gradle-maven-publish-plugin:$maven_publish_plugin_version"
     }
 }
 
