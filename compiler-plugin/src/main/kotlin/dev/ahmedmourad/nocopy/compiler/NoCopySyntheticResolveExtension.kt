@@ -86,7 +86,7 @@ open class NoCopySyntheticResolveExtension(
         when {
             hasNoCopy -> onNoCopy()
             hasLeastVisibleCopy -> classDescriptor.constructors
-                    .findLeastVisible(classDescriptor)
+                    .findLeastVisible()
                     ?.visibility
                     ?.let(onLeastVisibleCopy)
         }
@@ -114,18 +114,10 @@ open class NoCopySyntheticResolveExtension(
         }
     }
 
-    private fun Collection<ClassConstructorDescriptor>.findLeastVisible(
-            classDescriptor: ClassDescriptor
-    ): ClassConstructorDescriptor? {
+    private fun Collection<ClassConstructorDescriptor>.findLeastVisible(): ClassConstructorDescriptor? {
         return this.minBy {
-            it.visibility.asInt() ?: messageCollector?.error(
-                    "Unrecognized visibility: ${it.visibility}",
-                    it.findPsi()
-            ).run { 99 }
-        } ?: messageCollector?.error(
-                "Couldn't find least visible constructor",
-                classDescriptor.findPsi()
-        ).run { null }
+            it.visibility.asIntOrNull()!!
+        }
     }
 
     private fun isDataCopyMethod(
@@ -182,7 +174,7 @@ open class NoCopySyntheticResolveExtension(
         return this.hasAnnotation(FqName(LEAST_VISIBLE_COPY_ANNOTATION))
     }
 
-    private fun Visibility.asInt(): Int? {
+    private fun Visibility.asIntOrNull(): Int? {
         return when (this) {
             Visibilities.PRIVATE -> 1
             Visibilities.PROTECTED -> 2
