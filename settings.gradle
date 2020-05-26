@@ -1,6 +1,7 @@
 rootProject.name = "nocopy-compiler-plugin"
 
 include "sample"
+include "sample-android"
 
 includeBuild("idea-plugin")
 
