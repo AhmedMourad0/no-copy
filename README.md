@@ -105,10 +105,12 @@ apply plugin: 'dev.ahmedmourad.nocopy.nocopy-gradle-plugin'
  and provide your own cloning method, there are inspections included that will highlight an error when you
   do this.
   
-- Currently, you cannot have methods named `copy` with the same signature (return type included) in
- your `@NoCopy` annotated data class or you will get ide and compiler errors. (Attempting this, however,
-  can be considered a bad practise as `copy` has a very defined behaviour in `Kotlin`, replacing it
-   with your own custom implementation can be misleading)
+- Currently, you cannot have methods named `copy` with the same
+  signature (return type included) in your `@NoCopy` annotated data
+  class or you will get ide and compiler errors. (Attempting this,
+  however, can be considered a bad practice as `copy` has a very defined
+  behaviour in `Kotlin`, replacing it with your own custom
+  implementation can be misleading)
  
 - Kotlin compiler plugins are not a stable API. Compiled outputs from this plugin should be stable,
  but usage in newer versions of kotlinc are not guaranteed to be stable.
