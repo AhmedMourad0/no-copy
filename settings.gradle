@@ -7,5 +7,6 @@ includeBuild("plugins") {
     dependencySubstitution {
         substitute module("dev.ahmedmourad.nocopy:nocopy-gradle-plugin") with project(":gradle-plugin")
         substitute module("dev.ahmedmourad.nocopy:nocopy-annotations") with project(":annotations")
+        substitute module("dev.ahmedmourad.nocopy:nocopy-compiler-plugin") with project(":compiler-plugin")
     }
 }
