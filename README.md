@@ -1,6 +1,6 @@
 NoCopy Compiler Plugin
 ========================
-<img src="idea-plugin/src/main/resources/META-INF/pluginIcon.svg" alt="" width="200" />
+<img src="plugins/idea-plugin/src/main/resources/META-INF/pluginIcon.svg" alt="" width="200" />
 A Kotlin compiler plugin that enables using data classes as value-based classes
  by moderating usage of their `copy` method.
 
