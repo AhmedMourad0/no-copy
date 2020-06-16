@@ -97,20 +97,31 @@ apply plugin: 'dev.ahmedmourad.nocopy.nocopy-gradle-plugin'
 
 - Disable the default inspection `File -> Settings -> Editor ->
  Inspections -> Kotlin -> Probably bugs -> Private data class constructor is...`. Currently, you have to do
-  this manually due to a bug with the Kotlin plugin, [upvote](https://youtrack.jetbrains.com/issue/KT-37576).
+ this manually due to a bug with the Kotlin plugin, [upvote](https://youtrack.jetbrains.com/issue/KT-37576).
 
 ## Caveats
 
-- Mirroring internal constructors is not currently supported. For now, consider using `@NoCopy` instead
- and provide your own cloning method, there are inspections included that will highlight an error when you
-  do this.
+- Mirroring internal constructors with `@LeastVisibleCopy` is not currently
+ supported, for now, consider using `@NoCopy` instead and provide your own
+ cloning method, there are inspections included that will highlight an error when you
+ do this.
   
 - Currently, you cannot have methods named `copy` with the same
   signature (return type included) in your `@NoCopy` annotated data
-  class or you will get ide and compiler errors. (Attempting this,
+  class or you will get IDE and compiler errors. (Attempting this,
   however, can be considered a bad practice as `copy` has a very defined
   behaviour in `Kotlin`, replacing it with your own custom
   implementation can be misleading)
+  
+- Applying `@LeastVisibleCopy` and other compiler plugins that require access
+  to the constructors of the class,
+  eg. [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization),
+  to the same class will cause your build to fail with this error: 
+  ```
+  java.lang.IllegalStateException: Recursive call in a lazy value under LockBasedStorageManager@38d56162 (TopDownAnalyzer for JVM)
+  ```
+  this's due to the current limitations of the compiler plugins api that causes
+  these plugins to call each other recursively, [upvote](https://youtrack.jetbrains.com/issue/KT-39491).
  
 - Kotlin compiler plugins are not a stable API. Compiled outputs from this plugin should be stable,
  but usage in newer versions of kotlinc are not guaranteed to be stable.
@@ -127,7 +138,6 @@ apply plugin: 'dev.ahmedmourad.nocopy.nocopy-gradle-plugin'
 - Support having `copy` named methods in `@NoCopy` annotated data classes.
 - Testing.
 - Migrate to Arrow-Meta.
-- Auto install IDEA plugin.
 - Go Multiplatform.
 - Add annotation to convert regular classes to value-based classes
 - Move to Kotlin DSL for Gradle build scripts
