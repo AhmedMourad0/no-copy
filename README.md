@@ -2,7 +2,7 @@ NoCopy Compiler Plugin
 ========================
 <img src="idea-plugin/src/main/resources/META-INF/pluginIcon.svg" alt="" width="200" />
 A Kotlin compiler plugin that enables using data classes as value-based classes
- by forbidding usage of the `copy` method.
+ by moderating usage of their `copy` method.
 
 ## Usage
 
@@ -120,7 +120,7 @@ apply plugin: 'dev.ahmedmourad.nocopy.nocopy-gradle-plugin'
   ```
   java.lang.IllegalStateException: Recursive call in a lazy value under LockBasedStorageManager@38d56162 (TopDownAnalyzer for JVM)
   ```
-  this's due to the current limitations of the compiler plugins api that causes
+  this's due to the current limitations of the compiler plugins API that causes
   these plugins to call each other recursively, [upvote](https://youtrack.jetbrains.com/issue/KT-39491).
  
 - Kotlin compiler plugins are not a stable API. Compiled outputs from this plugin should be stable,
