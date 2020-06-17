@@ -2,7 +2,6 @@ package dev.ahmedmourad.nocopy.compiler
 
 import org.jetbrains.kotlin.cli.common.CLIConfigurationKeys
 import org.jetbrains.kotlin.cli.common.messages.MessageCollector
-import org.jetbrains.kotlin.codegen.extensions.ExpressionCodegenExtension
 import org.jetbrains.kotlin.com.intellij.mock.MockProject
 import org.jetbrains.kotlin.com.intellij.openapi.extensions.Extensions
 import org.jetbrains.kotlin.com.intellij.openapi.extensions.impl.ExtensionPointImpl
@@ -27,11 +26,6 @@ class NoCopyPlugin : ComponentRegistrar {
         SyntheticResolveExtension.registerExtensionAsFirst(
                 project,
                 NoCopySyntheticResolveExtension(messageCollector)
-        )
-
-        ExpressionCodegenExtension.registerExtensionAsFirst(
-                project,
-                NoCopyExpressionCodegenExtension(messageCollector)
         )
     }
 }
