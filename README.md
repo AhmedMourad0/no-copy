@@ -51,7 +51,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "dev.ahmedmourad.nocopy:nocopy-gradle-plugin:0.1.0"
+        classpath "dev.ahmedmourad.nocopy:nocopy-gradle-plugin:1.0.0"
     }  
 }
 ```
