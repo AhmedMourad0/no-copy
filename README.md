@@ -6,7 +6,7 @@ A Kotlin compiler plugin that enables using data classes as value-based classes
 
 ## Usage
 
-Include the gradle plugin in your project and apply `@NoCopy` or `@LeastVisibleCopy` to your data class.
+Include the gradle plugin in your project and apply `@NoCopy` to your data class.
 
 ### @NoCopy
 
@@ -21,7 +21,7 @@ data class User(val name: String, val phoneNumber: String)
 User("Ahmed", "+201234567890").copy(phoneNumber = "Happy birthday!") // Unresolved reference
 ```
 
-Now, you can do something like this and it actually makes sense:
+Now, you can do something like this, and it actually makes sense:
 
 ```kotlin
 @NoCopy
@@ -40,36 +40,6 @@ data class User private constructor(val name: String, val phoneNumber: String) {
 
 You no longer have to worry about your domain rules being broken by someone
  using the `copy` method with illegal values after an object has been instantiated.
-
-Or you could use `@LeastVisibleCopy`.
-
-### @LeastVisibleCopy
-
-`@LeastVisibleCopy` modifies `copy` to mirror the visibility of the least visible constructor of the annotated class:
-
-```kotlin
-@LeastVisibleCopy
-data class User private constructor(val name: String, val phoneNumber: String)
-```
-
-```kotlin
-User("Ahmed", "+201234567890").copy(phoneNumber = "Happy birthday!") // copy is private in User
-```
-
-The visibility is treated in this order:
-
-`public > internal > protected > private` 
-
-```kotlin
-@LeastVisibleCopy
-data class User(val name: String, val phoneNumber: String) {
-    private constructor(phoneNumber: String) : this("Ahmed", phoneNumber)
-}
-```
-
-```kotlin
-User("Ahmed", "+201234567890").copy(phoneNumber = "Happy birthday!") // copy is private in User
-```
 
 ## Installation
 
@@ -101,11 +71,6 @@ apply plugin: 'dev.ahmedmourad.nocopy.nocopy-gradle-plugin'
 
 ## Caveats
 
-- Mirroring internal constructors with `@LeastVisibleCopy` is not currently
- supported, for now, consider using `@NoCopy` instead and provide your own
- cloning method, there are inspections included that will highlight an error when you
- do this.
-  
 - Currently, you cannot have a method named `copy` with the same
   signature (return type included) in your `@NoCopy` annotated data
   class or you will get IDE and compiler errors. (Attempting this,
@@ -113,16 +78,6 @@ apply plugin: 'dev.ahmedmourad.nocopy.nocopy-gradle-plugin'
   behaviour in `Kotlin`, replacing it with your own custom
   implementation can be misleading)
   
-- Applying `@LeastVisibleCopy` and other compiler plugins that require access
-  to the constructors of the class,
-  eg. [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization),
-  to the same class will cause your build to fail with this error: 
-  ```
-  java.lang.IllegalStateException: Recursive call in a lazy value under LockBasedStorageManager@38d56162 (TopDownAnalyzer for JVM)
-  ```
-  this's due to the current limitations of the compiler plugins API that causes
-  these plugins to call each other recursively, [upvote](https://youtrack.jetbrains.com/issue/KT-39491).
- 
 - Kotlin compiler plugins are not a stable API. Compiled outputs from this plugin should be stable,
  but usage in newer versions of kotlinc are not guaranteed to be stable.
 
@@ -134,7 +89,6 @@ apply plugin: 'dev.ahmedmourad.nocopy.nocopy-gradle-plugin'
 
 ## Roadmap
 
-- Support mirroring internal constructors.
 - Support having `copy` named methods in `@NoCopy` annotated data classes.
 - Testing.
 - Migrate to Arrow-Meta.

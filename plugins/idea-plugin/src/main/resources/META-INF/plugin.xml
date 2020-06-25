@@ -28,19 +28,6 @@
 
         <localInspection
                 language="kotlin"
-                displayName="NoCopy: Using multiple no-copy annotations on the same data class."
-                groupPath="Kotlin"
-                groupBundle="messages.InspectionsBundle"
-                groupKey="group.names.probable.bugs"
-                enabledByDefault="true"
-                level="ERROR"
-                suppressId="NoCopyAnnotationConflict"
-                shortName="NoCopyAnnotationConflict"
-                implementationClass="dev.ahmedmourad.nocopy.idea.inspections.AnnotationConflictInspection"
-        />
-
-        <localInspection
-                language="kotlin"
                 displayName="NoCopy: no-copy annotations can only be applied to data classes."
                 groupPath="Kotlin"
                 groupBundle="messages.InspectionsBundle"
@@ -63,19 +50,6 @@
                 suppressId="NoCopyDataClassPrivateConstructor"
                 shortName="NoCopyDataClassPrivateConstructor"
                 implementationClass="dev.ahmedmourad.nocopy.idea.inspections.DataClassPrivateConstructorInspection"
-        />
-
-        <localInspection
-                language="kotlin"
-                displayName="NoCopy: Mirroring internal constructors is not yet supported."
-                groupPath="Kotlin"
-                groupBundle="messages.InspectionsBundle"
-                groupKey="group.names.probable.bugs"
-                enabledByDefault="true"
-                level="ERROR"
-                suppressId="NoCopyInternalLeastVisibleConstructor"
-                shortName="NoCopyInternalLeastVisibleConstructor"
-                implementationClass="dev.ahmedmourad.nocopy.idea.inspections.InternalLeastVisibleConstructorInspection"
         />
 
     </extensions>

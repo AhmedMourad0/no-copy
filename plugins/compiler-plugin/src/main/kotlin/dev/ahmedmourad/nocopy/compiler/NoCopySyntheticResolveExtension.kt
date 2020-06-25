@@ -1,7 +1,8 @@
 package dev.ahmedmourad.nocopy.compiler
 
 import org.jetbrains.kotlin.cli.common.messages.MessageCollector
-import org.jetbrains.kotlin.descriptors.*
+import org.jetbrains.kotlin.descriptors.ClassDescriptor
+import org.jetbrains.kotlin.descriptors.SimpleFunctionDescriptor
 import org.jetbrains.kotlin.js.resolve.diagnostics.findPsi
 import org.jetbrains.kotlin.name.Name
 import org.jetbrains.kotlin.resolve.BindingContext
@@ -30,15 +31,7 @@ open class NoCopySyntheticResolveExtension(
             return
         }
 
-        handleByAnnotation(thisDescriptor, name, onLeastVisibleCopy = {
-            super.generateSyntheticMethods(thisDescriptor, name, bindingContext, fromSupertypes, result)
-            handleLeastVisibleCopy(
-                    thisDescriptor,
-                    it,
-                    generatedCopyMethodIndex,
-                    result
-            )
-        }, onNoCopy = {
+        handleByAnnotation(thisDescriptor, name, onNoCopy = {
             handleNoCopy(generatedCopyMethodIndex, result)
         })
     }
@@ -46,17 +39,14 @@ open class NoCopySyntheticResolveExtension(
     private fun handleByAnnotation(
             classDescriptor: ClassDescriptor,
             name: Name,
-            onLeastVisibleCopy: (Visibility) -> Unit,
             onNoCopy: () -> Unit
     ) {
 
         val hasNoCopy = classDescriptor.hasNoCopy()
-        val hasLeastVisibleCopy = classDescriptor.hasLeastVisibleCopy()
 
         if (!classDescriptor.isData) {
             val annotation = when {
                 hasNoCopy -> "@NoCopy"
-                hasLeastVisibleCopy -> "@LeastVisibleCopy"
                 else -> "no-copy annotations"
             }
             messageCollector?.error(
@@ -70,48 +60,8 @@ open class NoCopySyntheticResolveExtension(
             return
         }
 
-        if (hasLeastVisibleCopy && hasNoCopy) {
-            messageCollector?.error(
-                    "You cannot have @NoCopy and @LeastVisibleCopy on the same data class",
-                    classDescriptor.findPsi()
-            )
-            return
-        }
-
         when {
             hasNoCopy -> onNoCopy()
-            hasLeastVisibleCopy -> classDescriptor.constructors
-                    .findLeastVisible()
-                    ?.visibility
-                    ?.let(onLeastVisibleCopy)
-        }
-    }
-
-    private fun handleLeastVisibleCopy(
-            classDescriptor: ClassDescriptor,
-            visibility: Visibility,
-            generatedCopyMethodIndex: Int,
-            result: MutableCollection<SimpleFunctionDescriptor>
-    ) {
-
-        if (visibility == Visibilities.INTERNAL) {
-            messageCollector?.error(
-                    "Mirroring internal constructors is not currently supported, try @NoCopy instead",
-                    classDescriptor.findPsi()
-            )
-            return
-        }
-
-        result.elementAt(generatedCopyMethodIndex).let { descriptor ->
-            val newCopy = descriptor.copy(
-                    classDescriptor,
-                    Modality.FINAL,
-                    visibility,
-                    CallableMemberDescriptor.Kind.SYNTHESIZED,
-                    false
-            )
-            result.remove(descriptor)
-            result.add(newCopy)
         }
     }
 

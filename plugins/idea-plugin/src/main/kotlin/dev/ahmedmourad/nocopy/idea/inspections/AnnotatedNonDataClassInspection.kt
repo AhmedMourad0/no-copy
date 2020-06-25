@@ -4,19 +4,16 @@ import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemHighlightType
 import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.psi.PsiElementVisitor
-import dev.ahmedmourad.nocopy.core.LEAST_VISIBLE_COPY_ANNOTATION
 import dev.ahmedmourad.nocopy.core.NO_COPY_ANNOTATION
 import dev.ahmedmourad.nocopy.idea.inspections.fixes.ConvertToDataClassFix
 import dev.ahmedmourad.nocopy.idea.inspections.fixes.RemoveAllClassAnnotationsFix
 import dev.ahmedmourad.nocopy.idea.inspections.fixes.RemoveClassAnnotationFix
-import dev.ahmedmourad.nocopy.idea.utils.hasLeastVisibleCopy
 import dev.ahmedmourad.nocopy.idea.utils.hasNoCopy
 import org.jetbrains.kotlin.idea.inspections.AbstractKotlinInspection
 import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.psi.KtClassOrObject
 import org.jetbrains.kotlin.psi.classOrObjectVisitor
-//import org.jetbrains.kotlin.util.isOrdinaryClass
 
 class AnnotatedNonDataClassInspection : AbstractKotlinInspection() {
 
@@ -24,7 +21,7 @@ class AnnotatedNonDataClassInspection : AbstractKotlinInspection() {
 
         return classOrObjectVisitor { klass ->
 
-            if (!klass.hasModifier(KtTokens.DATA_KEYWORD) && (klass.hasNoCopy() || klass.hasLeastVisibleCopy())) {
+            if (!klass.hasModifier(KtTokens.DATA_KEYWORD) && klass.hasNoCopy()) {
 
                 val quickFixes = mutableListOf<LocalQuickFix>()
 
@@ -36,10 +33,6 @@ class AnnotatedNonDataClassInspection : AbstractKotlinInspection() {
 
                 if (klass.hasNoCopy()) {
                     annotations += FqName(NO_COPY_ANNOTATION)
-                }
-
-                if (klass.hasLeastVisibleCopy()) {
-                    annotations += FqName(LEAST_VISIBLE_COPY_ANNOTATION)
                 }
 
                 if (annotations.size == 1) {

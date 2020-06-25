@@ -1,11 +1,9 @@
 package dev.ahmedmourad.nocopy.sample
 
-import dev.ahmedmourad.nocopy.annotations.LeastVisibleCopy
 import dev.ahmedmourad.nocopy.annotations.NoCopy
 
-@LeastVisibleCopy
-//@Serializable
-data class PhoneNumber internal constructor(
+@NoCopy
+data class PhoneNumber private constructor(
         val value: String
 ) {
 

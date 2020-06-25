@@ -3,7 +3,7 @@ package dev.ahmedmourad.nocopy.sample_android
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import dev.ahmedmourad.nocopy.annotations.LeastVisibleCopy
+import dev.ahmedmourad.nocopy.annotations.NoCopy
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -13,10 +13,9 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-@LeastVisibleCopy
+@NoCopy
 data class Some private constructor(val v: String) {
     companion object {
         fun of(v: String) = Some(v)
     }
 }
-

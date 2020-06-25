@@ -1,8 +1,8 @@
 package dev.ahmedmourad.nocopy.compiler
 
-import dev.ahmedmourad.nocopy.core.LEAST_VISIBLE_COPY_ANNOTATION
 import dev.ahmedmourad.nocopy.core.NO_COPY_ANNOTATION
-import org.jetbrains.kotlin.descriptors.*
+import org.jetbrains.kotlin.descriptors.ClassDescriptor
+import org.jetbrains.kotlin.descriptors.SimpleFunctionDescriptor
 import org.jetbrains.kotlin.descriptors.annotations.Annotated
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
@@ -13,20 +13,6 @@ private fun Annotated.hasAnnotation(annotation: FqName): Boolean {
 
 internal fun ClassDescriptor.hasNoCopy(): Boolean {
     return this.hasAnnotation(FqName(NO_COPY_ANNOTATION))
-}
-
-internal fun ClassDescriptor.hasLeastVisibleCopy(): Boolean {
-    return this.hasAnnotation(FqName(LEAST_VISIBLE_COPY_ANNOTATION))
-}
-
-internal fun Visibility.asIntOrNull(): Int? {
-    return when (this) {
-        Visibilities.PRIVATE -> 1
-        Visibilities.PROTECTED -> 2
-        Visibilities.INTERNAL -> 3
-        Visibilities.PUBLIC -> 4
-        else -> null
-    }
 }
 
 internal fun isGeneratedCopyMethod(
@@ -60,11 +46,5 @@ internal fun Collection<SimpleFunctionDescriptor>.findGeneratedCopyMethodIndex(
         null
     } else {
         index
-    }
-}
-
-internal fun Collection<ClassConstructorDescriptor>.findLeastVisible(): ClassConstructorDescriptor? {
-    return this.minBy {
-        it.visibility.asIntOrNull()!!
     }
 }
