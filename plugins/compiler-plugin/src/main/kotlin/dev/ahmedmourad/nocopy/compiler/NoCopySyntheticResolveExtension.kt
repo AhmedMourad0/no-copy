@@ -1,10 +1,7 @@
 package dev.ahmedmourad.nocopy.compiler
 
 import org.jetbrains.kotlin.cli.common.messages.MessageCollector
-import org.jetbrains.kotlin.codegen.coroutines.createCustomCopy
-import org.jetbrains.kotlin.descriptors.ClassDescriptor
-import org.jetbrains.kotlin.descriptors.SimpleFunctionDescriptor
-import org.jetbrains.kotlin.descriptors.Visibility
+import org.jetbrains.kotlin.descriptors.*
 import org.jetbrains.kotlin.js.resolve.diagnostics.findPsi
 import org.jetbrains.kotlin.name.Name
 import org.jetbrains.kotlin.resolve.BindingContext
@@ -97,16 +94,22 @@ open class NoCopySyntheticResolveExtension(
             result: MutableCollection<SimpleFunctionDescriptor>
     ) {
 
-//        if (visibility == Visibilities.INTERNAL) {
-//            messageCollector?.error(
-//                    "Mirroring internal constructors is not currently supported, try @NoCopy instead",
-//                    classDescriptor.findPsi()
-//            )
-//            return
-//        }
+        if (visibility == Visibilities.INTERNAL) {
+            messageCollector?.error(
+                    "Mirroring internal constructors is not currently supported, try @NoCopy instead",
+                    classDescriptor.findPsi()
+            )
+            return
+        }
 
         result.elementAt(generatedCopyMethodIndex).let { descriptor ->
-            val newCopy = descriptor.createCustomCopy { it.newCopyBuilder().setVisibility(visibility) }
+            val newCopy = descriptor.copy(
+                    classDescriptor,
+                    Modality.FINAL,
+                    visibility,
+                    CallableMemberDescriptor.Kind.SYNTHESIZED,
+                    false
+            )
             result.remove(descriptor)
             result.add(newCopy)
         }
