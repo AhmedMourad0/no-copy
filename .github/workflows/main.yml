@@ -17,4 +17,4 @@ jobs:
     - name: Make gradlew executable
       run: chmod +x ./gradlew
     - name: Run unit tests
-      run: ./gradlew -p plugins/compiler-plugin clean test --info
+      run: ./gradlew -p plugins/compiler-plugin clean test --info -PintellijPublishToken=stub
