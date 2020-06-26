@@ -1,4 +1,4 @@
-NoCopy Compiler Plugin
+NoCopy Compiler Plugin  ![CI](https://github.com/AhmedMourad0/no-copy/workflows/CI/badge.svg)
 ========================
 <img src="plugins/idea-plugin/src/main/resources/META-INF/pluginIcon.svg" alt="" width="200" />
 A Kotlin compiler plugin that enables using data classes as value-based classes
