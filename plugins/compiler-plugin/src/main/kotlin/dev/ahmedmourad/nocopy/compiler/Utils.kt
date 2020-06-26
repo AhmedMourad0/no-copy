@@ -16,10 +16,9 @@ internal fun ClassDescriptor.hasNoCopy(): Boolean {
 }
 
 internal fun isGeneratedCopyMethod(
-        classDescriptor: ClassDescriptor,
         name: Name
 ): Boolean {
-    return classDescriptor.isData && name.asString() == "copy"
+    return name.asString() == "copy"
 }
 
 internal fun Collection<SimpleFunctionDescriptor>.findGeneratedCopyMethodIndex(

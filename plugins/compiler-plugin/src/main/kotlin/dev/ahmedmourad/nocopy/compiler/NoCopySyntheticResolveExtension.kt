@@ -20,7 +20,28 @@ open class NoCopySyntheticResolveExtension(
             result: MutableCollection<SimpleFunctionDescriptor>
     ) {
 
-        if (!isGeneratedCopyMethod(thisDescriptor, name)) {
+        val hasNoCopy = thisDescriptor.hasNoCopy()
+
+        if (!thisDescriptor.isData) {
+
+            val annotation = when {
+                hasNoCopy -> "@NoCopy"
+                else -> null
+            }
+
+            if (annotation != null) {
+                messageCollector?.error(
+                        "Only data classes could be annotated with $annotation!",
+                        thisDescriptor.findPsi()
+                )
+            } else {
+                super.generateSyntheticMethods(thisDescriptor, name, bindingContext, fromSupertypes, result)
+            }
+
+            return
+        }
+
+        if (!isGeneratedCopyMethod(name)) {
             super.generateSyntheticMethods(thisDescriptor, name, bindingContext, fromSupertypes, result)
             return
         }
@@ -31,37 +52,8 @@ open class NoCopySyntheticResolveExtension(
             return
         }
 
-        handleByAnnotation(thisDescriptor, name, onNoCopy = {
-            handleNoCopy(generatedCopyMethodIndex, result)
-        })
-    }
-
-    private fun handleByAnnotation(
-            classDescriptor: ClassDescriptor,
-            name: Name,
-            onNoCopy: () -> Unit
-    ) {
-
-        val hasNoCopy = classDescriptor.hasNoCopy()
-
-        if (!classDescriptor.isData) {
-            val annotation = when {
-                hasNoCopy -> "@NoCopy"
-                else -> "no-copy annotations"
-            }
-            messageCollector?.error(
-                    "Only data classes could be annotated with $annotation",
-                    classDescriptor.findPsi()
-            )
-            return
-        }
-
-        if (name.asString() != "copy") {
-            return
-        }
-
         when {
-            hasNoCopy -> onNoCopy()
+            hasNoCopy -> handleNoCopy(generatedCopyMethodIndex, result)
         }
     }
 
