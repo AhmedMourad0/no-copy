@@ -1,6 +1,7 @@
 ## Roadmap
 
 - Support having `copy` named methods in `@NoCopy` annotated data classes.
+- Add `@LeastVisibleCopy`.
 - Migrate to Arrow-Meta.
 - Go Multiplatform.
 - Add annotation to convert regular classes to value-based classes.
