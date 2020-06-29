@@ -35,12 +35,19 @@ dependencies {
 }
 
 intellij {
-//    version "2020.1.1"
-    version "192.7142.36"
+    version "2020.1.2"
+//    version "192.7142.36"
     pluginName = "NoCopy IntelliJ IDEA Plugin"
     type "IC"
     plugins = ["java", "Kotlin"]
 }
+
+patchPluginXml {
+    sinceBuild "191.0"
+    untilBuild "202.*"
+    version "1.0.0"
+}
+
 
 publishPlugin {
     token intellijPublishToken
