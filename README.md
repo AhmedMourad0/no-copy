@@ -18,7 +18,7 @@ data class User(val name: String, val phoneNumber: String)
 ```
 
 ```kotlin
-User("Ahmed", "+201234567890").copy(phoneNumber = "Happy birthday!") // Unresolved reference
+User("Ahmed", "+201234567890").copy(phoneNumber = "Happy birthday!") // Unresolved reference: copy
 ```
 
 Now, you can do something like this, and it actually makes sense:
