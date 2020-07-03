@@ -55,7 +55,7 @@ Wrong:
 ```kotlin
 User.of("Ahmed", "+201234567890").copy(phoneNumber = "Gotcha")
 ```
-`copy` can bypass all the validations of your data class, it breaks your domain rules.
+`copy` can bypass all the validations of your data class, it breaks your domain rules!
  
 There are a couple of interesting discussions on the subject,
  [here](https://www.reddit.com/r/Kotlin/comments/hjoyxx/nocopy_compiler_plugin_for_kotlin/)
