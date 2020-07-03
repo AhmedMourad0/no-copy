@@ -51,8 +51,8 @@ Why would you want to do that? Well, there are a couple of reasons:
 - `copy` is a guaranteed source of binary incompatibility as you add new properties to the type when
  all you wanted was value semantics.
 - If you try to create [value-based classes](https://docs.oracle.com/javase/8/docs/api/java/lang/doc-files/ValueBased.html),
- `copy` will break your constructor invariants, private constructors are basically
-  meaningless as long as `copy` exists.
+ `copy` will break your constructor invariants
+- private constructors are basically meaningless as long as `copy` exists.
  
 There are a couple of interesting discussions on the subject,
  [here](https://www.reddit.com/r/Kotlin/comments/hjoyxx/nocopy_compiler_plugin_for_kotlin/)
