@@ -21,26 +21,6 @@ data class User(val name: String, val phoneNumber: String)
 User("Ahmed", "+201234567890").copy(phoneNumber = "Happy birthday!") // Unresolved reference: copy
 ```
 
-Now, you can do something like this, and it actually makes sense:
-
-```kotlin
-@NoCopy
-data class User private constructor(val name: String, val phoneNumber: String) {
-    companion object {
-        fun of(name: String, phoneNumber: String): Either<UserException, User> {
-            return if (bad) {
-                exception.left()
-            } else {
-                User(name, phoneNumber).right()
-            }
-        }
-    }
-}
-```
-
-You no longer have to worry about your domain rules being broken by someone
- using the `copy` method with illegal values after an object has been instantiated.
-
 ## Why? I hear you asking.
 
 The `copy` method of Kotlin data classes is a known language design problem, normally, you can't
@@ -53,6 +33,29 @@ Why would you want to do that? Well, there are a couple of reasons:
 - If you want [value-based classes](https://docs.oracle.com/javase/8/docs/api/java/lang/doc-files/ValueBased.html),
  `copy` will break your constructor invariants
 - Private constructors are basically meaningless as long as `copy` exists.
+
+Consider something like this:
+
+```kotlin
+data class User private constructor(val name: String, val phoneNumber: String) {
+    companion object {
+        fun of(name: String, phoneNumber: String): Either<UserException, User> {
+            return if (bad) {
+                exception.left() //You can throw an exception here if you like too.
+            } else {
+                User(name, phoneNumber).right()
+            }
+        }
+    }
+}
+```
+It would look like all instances of `User` must be valid and can't `bad`, right?
+
+Wrong:
+```kotlin
+User.of("Ahmed", "+201234567890").copy(phoneNumber = "Gotcha")
+```
+`copy` can bypass all the validations of your data class, it breaks your domain rules.
  
 There are a couple of interesting discussions on the subject,
  [here](https://www.reddit.com/r/Kotlin/comments/hjoyxx/nocopy_compiler_plugin_for_kotlin/)
