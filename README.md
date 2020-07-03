@@ -21,7 +21,7 @@ data class User(val name: String, val phoneNumber: String)
 User("Ahmed", "+201234567890").copy(phoneNumber = "Happy birthday!") // Unresolved reference: copy
 ```
 
-## Why? I hear you asking.
+## Why? I hear you ask.
 
 The `copy` method of Kotlin data classes is a known language design problem, normally, you can't
 remove it, you can't override it, and you can document it.
