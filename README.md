@@ -41,7 +41,7 @@ data class User private constructor(val name: String, val phoneNumber: String) {
     companion object {
         fun of(name: String, phoneNumber: String): Either<UserException, User> {
             return if (bad) {
-                exception.left() //You can throw an exception here if you like too.
+                exception.left() //You can throw an exception here if you like instead.
             } else {
                 User(name, phoneNumber).right()
             }
