@@ -1,4 +1,4 @@
-NoCopy Compiler Plugin  ![CI](https://github.com/AhmedMourad0/no-copy/workflows/CI/badge.svg)
+NoCopy Compiler Plugin   ![CI](https://github.com/AhmedMourad0/no-copy/workflows/CI/badge.svg) ![Maven Central](https://maven-badges.herokuapp.com/maven-central/dev.ahmedmourad.nocopy/nocopy-gradle-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/dev.ahmedmourad.nocopy/nocopy-gradle-plugin)
 ========================
 <img src="plugins/idea-plugin/src/main/resources/META-INF/pluginIcon.svg" alt="" width="200" />
 A Kotlin compiler plugin that removes the `copy` method from data classes
