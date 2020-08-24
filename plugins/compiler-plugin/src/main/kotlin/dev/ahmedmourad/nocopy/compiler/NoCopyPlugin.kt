@@ -30,7 +30,7 @@ class NoCopyPlugin : ComponentRegistrar {
     }
 }
 
-private fun <T> ProjectExtensionDescriptor<T>.registerExtensionAsFirst(project: Project, extension: T) {
+private fun <T : Any> ProjectExtensionDescriptor<T>.registerExtensionAsFirst(project: Project, extension: T) {
     Extensions.getArea(project)
             .getExtensionPoint(extensionPointName)
             .let { it as ExtensionPointImpl }
