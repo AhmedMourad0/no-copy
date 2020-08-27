@@ -71,7 +71,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "dev.ahmedmourad.nocopy:nocopy-gradle-plugin:1.4.0"
+        classpath "dev.ahmedmourad.nocopy:nocopy-gradle-plugin:1.1.0"
     }  
 }
 ```
@@ -106,7 +106,7 @@ apply plugin: 'dev.ahmedmourad.nocopy.nocopy-gradle-plugin'
 | Kotlin Version | NoCopy Version |
 | :------------: | :------------: |
 | 1.3.72 | 1.0.0
-| 1.4.0 | 1.4.0
+| 1.4.0 | 1.1.0
 
 
 License
