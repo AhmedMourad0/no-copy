@@ -1,6 +1,6 @@
 package dev.ahmedmourad.nocopy.core
 
-const val VERSION = "1.4.0-SNAPSHOT"
+const val VERSION = "1.1.0-SNAPSHOT"
 const val PLUGIN_ID = "nocopy-compiler-plugin"
 const val PLUGIN_NAME = "nocopy"
 

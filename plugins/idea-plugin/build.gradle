@@ -45,7 +45,7 @@ intellij {
 patchPluginXml {
     sinceBuild "191.0"
     untilBuild "202.*"
-    version "1.4.0"
+    version "1.1.0"
 }
 
 
