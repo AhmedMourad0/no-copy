@@ -49,7 +49,7 @@ data class User private constructor(val name: String, val phoneNumber: String) {
     }
 }
 ```
-It would look like all instances of `User` must be valid and can't `bad`, right?
+It would look like all instances of `User` must be valid and can't be `bad`, right?
 
 Wrong:
 ```kotlin
@@ -57,9 +57,7 @@ User.of("Ahmed", "+201234567890").copy(phoneNumber = "Gotcha")
 ```
 `copy` can bypass all the validations of your data class, it breaks your domain rules!
  
-There are a couple of interesting discussions on the subject,
- [here](https://www.reddit.com/r/Kotlin/comments/hjoyxx/nocopy_compiler_plugin_for_kotlin/)
- and [here](https://www.reddit.com/r/androiddev/comments/hj3yq8/nocopy_compiler_plugin_for_kotlin/).
+ For more detailed explaination, check out [this article](https://medium.com/swlh/value-based-classes-and-error-handling-in-kotlin-3f14727c0565?source=friends_link&sk=a16186408e1c8e317e3e11fd16e33710).
 
 ## Installation
 
