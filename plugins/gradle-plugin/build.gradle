@@ -24,6 +24,7 @@ gradlePlugin {
 }
 
 pluginBundle {
+    website = "http://nocopy.ahmedmourad.dev/"
     vcsUrl = "https://github.com/AhmedMourad0/no-copy"
     description = "The Gradle plugin for no-copy, a Kotlin compiler plugin that performs `copy-erasure` on data classes."
     tags = ["kotlin-compiler", "gradle-plugin", "intellij-plugin", "compiler-plugin", "data-class", "value-based",
