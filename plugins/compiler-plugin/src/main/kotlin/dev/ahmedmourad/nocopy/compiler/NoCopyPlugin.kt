@@ -3,7 +3,6 @@ package dev.ahmedmourad.nocopy.compiler
 import org.jetbrains.kotlin.cli.common.CLIConfigurationKeys
 import org.jetbrains.kotlin.cli.common.messages.MessageCollector
 import org.jetbrains.kotlin.com.intellij.mock.MockProject
-import org.jetbrains.kotlin.com.intellij.openapi.extensions.Extensions
 import org.jetbrains.kotlin.com.intellij.openapi.extensions.impl.ExtensionPointImpl
 import org.jetbrains.kotlin.com.intellij.openapi.project.Project
 import org.jetbrains.kotlin.compiler.plugin.ComponentRegistrar
@@ -31,7 +30,7 @@ class NoCopyPlugin : ComponentRegistrar {
 }
 
 private fun <T : Any> ProjectExtensionDescriptor<T>.registerExtensionAsFirst(project: Project, extension: T) {
-    Extensions.getArea(project)
+    project.extensionArea
             .getExtensionPoint(extensionPointName)
             .let { it as ExtensionPointImpl }
             .registerExtension(extension, project)
