@@ -30,7 +30,7 @@ jar {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.20"
     implementation project(":compiler-plugin")
 }
 
@@ -45,7 +45,7 @@ intellij {
 patchPluginXml {
     sinceBuild "191.0"
     untilBuild "202.*"
-    version "1.1.0"
+    version "1.2.0"
 }
 
 

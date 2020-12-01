@@ -103,8 +103,9 @@ apply plugin: 'dev.ahmedmourad.nocopy.nocopy-gradle-plugin'
 
 | Kotlin Version | NoCopy Version |
 | :------------: | :------------: |
-| 1.3.72 | 1.0.0
+| 1.4.20 | 1.2.0
 | 1.4.0 | 1.1.0
+| 1.3.72 | 1.0.0
 
 
 License

@@ -1,11 +1,11 @@
 <idea-plugin>
     <id>dev.ahmedmourad.nocopy.idea-plugin</id>
     <name>Kotlin NoCopy</name>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
     <vendor email="dev.ahmedmourad73744@gmail.com">Ahmed Mourad</vendor>
 
     <description><![CDATA[
-    The IDEA plugin for no-copy, a Kotlin compiler plugin that enables using data classes as value-based classes.<br>
+    The IDEA plugin for no-copy, a Kotlin compiler plugin that performs `copy-erasure` on data classes.<br>
     <a href="https://github.com/AhmedMourad0/no-copy">Visit on Github</a>
     ]]></description>
 
