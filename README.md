@@ -66,7 +66,6 @@ User.of("Ahmed", "+201234567890").copy(phoneNumber = "Gotcha")
 - In your module-level `build.gradle`:
 
 ```gradle
-// For each module that needs to use the annotations
 plugins {
   id "dev.ahmedmourad.nocopy.nocopy-gradle-plugin" version "1.2.0"
 }
