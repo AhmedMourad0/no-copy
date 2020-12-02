@@ -57,7 +57,7 @@ User.of("Ahmed", "+201234567890").copy(phoneNumber = "Gotcha")
 ```
 `copy` can bypass all the validations of your data class, it breaks your domain rules!
  
- For more detailed explaination, check out [this article](https://medium.com/swlh/value-based-classes-and-error-handling-in-kotlin-3f14727c0565?source=friends_link&sk=a16186408e1c8e317e3e11fd16e33710).
+ For more detailed explanation, check out [this article](https://medium.com/swlh/value-based-classes-and-error-handling-in-kotlin-3f14727c0565?source=friends_link&sk=a16186408e1c8e317e3e11fd16e33710).
 
 ## Installation
 
@@ -91,7 +91,7 @@ apply plugin: 'dev.ahmedmourad.nocopy.nocopy-gradle-plugin'
 
 - Currently, you cannot have a method named `copy` with the same
   signature (return type included) in your `@NoCopy` annotated data
-  class or you will get IDE and compiler errors. (Attempting this,
+  class or you will get IDE and compilation errors. (Attempting this,
   however, can be considered a bad practice as `copy` has a very defined
   behaviour in `Kotlin`, replacing it with your own custom
   implementation can be misleading)
