@@ -61,15 +61,30 @@ User.of("Ahmed", "+201234567890").copy(phoneNumber = "Gotcha")
 
 ## Installation
 
+### Using plugins DSL
+
+- In your module-level `build.gradle`:
+
+```gradle
+// For each module that needs to use the annotations
+plugins {
+  id "dev.ahmedmourad.nocopy.nocopy-gradle-plugin" version "1.2.0"
+}
+```
+
+### Using legacy plugin application
+
 - In your project-level `build.gradle`:
 
 ```gradle
 buildscript {
     repositories {
         mavenCentral()
+        // Or
+        maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath "dev.ahmedmourad.nocopy:nocopy-gradle-plugin:1.1.0"
+        classpath "dev.ahmedmourad.nocopy:nocopy-gradle-plugin:1.2.0"
     }  
 }
 ```
@@ -80,6 +95,8 @@ buildscript {
 // For each module that needs to use the annotations
 apply plugin: 'dev.ahmedmourad.nocopy.nocopy-gradle-plugin'
 ```
+
+### IDE Support
 
 - Install the IDEA plugin *`File -> Settings -> plugins -> Marketplace -> Kotlin NoCopy`*
 
