@@ -20,5 +20,5 @@ Upgraded to Kotlin 1.4.0
 
 _2020-12-02_
 
-Upgraded to Kotlin 1.4.20
-Added the gradle plugin to the Gradle Plugin Portal #2
+- Upgraded to Kotlin 1.4.20
+- Added the gradle plugin to the Gradle Plugin Portal #2
