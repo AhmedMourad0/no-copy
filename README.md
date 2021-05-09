@@ -67,7 +67,7 @@ User.of("Ahmed", "+201234567890").copy(phoneNumber = "Gotcha")
 
 ```gradle
 plugins {
-  id "dev.ahmedmourad.nocopy.nocopy-gradle-plugin" version "1.3.0"
+  id "dev.ahmedmourad.nocopy.nocopy-gradle-plugin" version "1.4.0"
 }
 ```
 
@@ -83,7 +83,7 @@ buildscript {
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath "dev.ahmedmourad.nocopy:nocopy-gradle-plugin:1.3.0"
+        classpath "dev.ahmedmourad.nocopy:nocopy-gradle-plugin:1.4.0"
     }  
 }
 ```
@@ -112,6 +112,7 @@ apply plugin: 'dev.ahmedmourad.nocopy.nocopy-gradle-plugin'
 
 | Kotlin Version | NoCopy Version |
 | :------------: | :------------: |
+| 1.5.0 | 1.4.0
 | 1.4.32 | 1.3.0
 | 1.4.20 | 1.2.0
 | 1.4.0 | 1.1.0
