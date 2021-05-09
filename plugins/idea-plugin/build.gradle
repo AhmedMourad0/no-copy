@@ -10,7 +10,6 @@ repositories {
     maven {
         url "https://www.jetbrains.com/intellij-repository/snapshots"
     }
-    jcenter()
 }
 
 tasks.withType(KotlinCompile).all {

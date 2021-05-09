@@ -5,7 +5,7 @@ apply plugin: "kotlinx-serialization"
 apply plugin: "dev.ahmedmourad.nocopy.nocopy-gradle-plugin"
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {

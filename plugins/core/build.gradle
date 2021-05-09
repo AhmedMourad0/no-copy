@@ -4,13 +4,7 @@ apply plugin: "org.jetbrains.kotlin.jvm"
 apply plugin: "com.vanniktech.maven.publish"
 
 repositories {
-    jcenter()
-}
-
-tasks.withType(KotlinCompile).all {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+    mavenCentral()
 }
 
 jar {

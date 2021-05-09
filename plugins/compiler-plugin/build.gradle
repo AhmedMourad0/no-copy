@@ -6,7 +6,6 @@ apply plugin: "com.vanniktech.maven.publish"
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
 tasks.withType(KotlinCompile).all {
