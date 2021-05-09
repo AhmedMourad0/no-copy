@@ -10,7 +10,6 @@ repositories {
 
 tasks.withType(KotlinCompile).all {
     kotlinOptions {
-        jvmTarget = "1.8"
         freeCompilerArgs = ['-progressive', '-Xjvm-default=all']
     }
 }
@@ -31,7 +30,7 @@ dependencies {
     api project(":core")
 
     testImplementation "org.jetbrains.kotlin:kotlin-compiler-embeddable:$kotlin_version"
-    testImplementation "com.github.tschuchortdev:kotlin-compile-testing:1.2.10"
+    testImplementation "com.github.tschuchortdev:kotlin-compile-testing:1.4.0"
     testImplementation "junit:junit:4.13"
     testImplementation "com.google.truth:truth:1.0.1"
     testImplementation project(":annotations")

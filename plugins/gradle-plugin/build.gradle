@@ -44,12 +44,6 @@ pluginBundle {
     }
 }
 
-tasks.withType(KotlinCompile).all {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-}
-
 jar {
     manifest {
         attributes["Specification-Title"] = project.name
