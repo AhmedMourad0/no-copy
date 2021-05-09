@@ -27,59 +27,75 @@ class NoCopyPluginTests {
           """
         ))
         assertThat(result.exitCode).isEqualTo(KotlinCompilation.ExitCode.COMPILATION_ERROR)
-        assertThat(result.messages).contains("NonDataClass.kt: (3, 1): Only data classes could be annotated with @NoCopy!")
+        assertThat(result.messages).contains("${LOG_TAG}Only data classes could be annotated with @NoCopy!")
     }
 
     @Test
     fun `@NoCopy annotated data class should compile just fine`() {
-        val result = compile(kotlin("DataClass.kt",
+        val result = compile(
+            kotlin(
+                "DataClass.kt",
                 """
           package dev.ahmedmourad.nocopy.compiler
           import dev.ahmedmourad.nocopy.annotations.NoCopy
           @NoCopy
           data class DataClass(val a: Int)
           """
-        ))
+            )
+        )
         assertThat(result.exitCode).isEqualTo(KotlinCompilation.ExitCode.OK)
-        assertThat(result.messages).isEmpty()
+        assertThat(result.messages).doesNotContain(LOG_TAG)
+        assertThat(result.messages).doesNotContain("Unresolved reference: copy")
     }
 
     @Test
     fun `un-annotated normal class should compile just fine`() {
-        val result = compile(kotlin("NormalClass.kt",
+        val result = compile(
+            kotlin(
+                "NormalClass.kt",
                 """
           package dev.ahmedmourad.nocopy.compiler
           class NormalClass(val a: Int)
           """
-        ))
+            )
+        )
         assertThat(result.exitCode).isEqualTo(KotlinCompilation.ExitCode.OK)
-        assertThat(result.messages).isEmpty()
+        assertThat(result.messages).doesNotContain(LOG_TAG)
+        assertThat(result.messages).doesNotContain("Unresolved reference: copy")
     }
 
     @Test
     fun `un-annotated data class should compile just fine`() {
-        val result = compile(kotlin("DataClass.kt",
+        val result = compile(
+            kotlin(
+                "DataClass.kt",
                 """
           package dev.ahmedmourad.nocopy.compiler
           data class DataClass(val a: Int)
           """
-        ))
-        assertThat(result.messages).isEmpty()
+            )
+        )
+        assertThat(result.messages).doesNotContain(LOG_TAG)
+        assertThat(result.messages).doesNotContain("Unresolved reference: copy")
         assertThat(result.exitCode).isEqualTo(KotlinCompilation.ExitCode.OK)
     }
 
     @Test
     fun `using 'copy' of an unannotated data class should compile just fine`() {
-        val result = compile(kotlin("DataClass.kt",
+        val result = compile(
+            kotlin(
+                "DataClass.kt",
                 """
           package dev.ahmedmourad.nocopy.compiler
           data class DataClass(val a: Int) {
             fun withFiveForNoReason() = this.copy(a = 4)
           }
           """
-        ))
+            )
+        )
         assertThat(result.exitCode).isEqualTo(KotlinCompilation.ExitCode.OK)
-        assertThat(result.messages).isEmpty()
+        assertThat(result.messages).doesNotContain(LOG_TAG)
+        assertThat(result.messages).doesNotContain("Unresolved reference: copy")
     }
 
     @Test
@@ -95,26 +111,7 @@ class NoCopyPluginTests {
           """
         ))
         assertThat(result.exitCode).isEqualTo(KotlinCompilation.ExitCode.COMPILATION_ERROR)
-        assertThat(result.messages).contains("DataClass.kt: (5, 36): Unresolved reference: copy")
-    }
-
-    @Test
-    fun `using 'copy' of a @NoCopy annotated data class which declares another 'copy' should compile just fine`() {
-        val result = compile(kotlin("DataClass.kt",
-                """
-          package dev.ahmedmourad.nocopy.compiler
-          import dev.ahmedmourad.nocopy.annotations.NoCopy
-          @NoCopy
-          data class DataClass(val a: Int) {
-            fun withFiveForNoReason() = this.copy(a = 11)
-            fun copy(a: Int) {
-                println(a)
-            }
-          }
-          """
-        ))
-        assertThat(result.exitCode).isEqualTo(KotlinCompilation.ExitCode.OK)
-        assertThat(result.messages).isEmpty()
+        assertThat(result.messages).contains("Unresolved reference: copy")
     }
 
     private fun prepareCompilation(vararg sourceFiles: SourceFile): KotlinCompilation {
