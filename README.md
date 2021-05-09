@@ -104,14 +104,7 @@ apply plugin: 'dev.ahmedmourad.nocopy.nocopy-gradle-plugin'
  this manually due to a bug with the Kotlin plugin, [upvote](https://youtrack.jetbrains.com/issue/KT-37576).
 
 ## Caveats
-
-- Currently, you cannot have a method named `copy` with the same
-  signature (return type included) in your `@NoCopy` annotated data
-  class or you will get IDE and compilation errors. (Attempting this,
-  however, can be considered a bad practice as `copy` has a very defined
-  behaviour in `Kotlin`, replacing it with your own custom
-  implementation can be misleading)
-  
+ 
 - Kotlin compiler plugins are not a stable API. Compiled outputs from this plugin should be stable,
  but usage in newer versions of kotlinc are not guaranteed to be stable.
 
