@@ -9,7 +9,7 @@
     <a href="https://github.com/AhmedMourad0/no-copy">Visit on Github</a>
     ]]></description>
 
-    <idea-version since-build="191.0" until-build="203.*"/>
+    <idea-version since-build="191.0" until-build="212.*"/>
 
     <depends>org.jetbrains.kotlin</depends>
     <depends>com.intellij.modules.platform</depends>

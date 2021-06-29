@@ -1,62 +1,35 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id "org.jetbrains.intellij" version "0.7.3"
-    id "org.jetbrains.kotlin.jvm"
+    id 'java'
+    id 'org.jetbrains.intellij' version "1.1-SNAPSHOT"
 }
 
 repositories {
     mavenCentral()
-    maven {
-        url "https://www.jetbrains.com/intellij-repository/snapshots"
-    }
 }
 
-tasks.withType(KotlinCompile).all {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-}
+sourceCompatibility = 1.8
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.0"
     implementation project(":compiler-plugin")
 }
 
-jar {
-    manifest {
-        attributes["Specification-Title"] = project.name
-        attributes["Specification-Version"] = project.version
-        attributes["Implementation-Title"] = "dev.ahmedmourad.nocopy.nocopy-idea-plugin"
-        attributes["Implementation-Version"] = project.version
-    }
-    from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-}
-
 intellij {
-    version "2020.3.3"
-//    version "192.7142.36"
     pluginName = "NoCopy IntelliJ IDEA Plugin"
-    type "IC"
+    type = "IC"
     plugins = ["java", "Kotlin"]
 }
 
 patchPluginXml {
-    sinceBuild "191.0"
-    untilBuild "203.*"
-    version "1.4.0"
+    sinceBuild = "191.0"
+    untilBuild = "212.*"
+    version = "1.4.0"
 }
 
-
 publishPlugin {
-    token intellijPublishToken
-//    channels "beta"
+    token = intellijPublishToken
 }
 
 runIde {
-//    ideDirectory "C:/Users/Ahmed Mourad/AppData/Local/JetBrains/Toolbox/apps/AndroidStudio/ch-0/192.6392135"
-}
 
-patchPluginXml {
-    version = project.version
 }
