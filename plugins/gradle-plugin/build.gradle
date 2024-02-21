@@ -1,7 +1,5 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
-    id "com.gradle.plugin-publish" version "0.12.0"
+    id "com.gradle.plugin-publish" version "1.2.1"
 }
 
 apply plugin: "java-gradle-plugin"
@@ -13,34 +11,23 @@ repositories {
     mavenCentral()
 }
 
+group = "dev.ahmedmourad.nocopy"
+version = "1.5.0"
+
 gradlePlugin {
+    website = "http://nocopy.ahmedmourad.dev/"
+    vcsUrl = "https://github.com/AhmedMourad0/no-copy"
     plugins {
         noCopyPlugin {
             id = "dev.ahmedmourad.nocopy.nocopy-gradle-plugin"
             implementationClass = "dev.ahmedmourad.nocopy.gradle.NoCopyGradlePlugin"
-        }
-    }
-}
-
-pluginBundle {
-    website = "http://nocopy.ahmedmourad.dev/"
-    vcsUrl = "https://github.com/AhmedMourad0/no-copy"
-    description = "The Gradle plugin for no-copy, a Kotlin compiler plugin that removes the `copy` method of data classes."
-    tags = ["kotlin-compiler", "gradle-plugin", "intellij-plugin", "compiler-plugin", "data-class", "value-based",
-            "annotations", "kotlin-extensions", "kotlin", "kotlin-language", "kotlin-library", "kotlin-compiler-plugin",
-            "inspections", "kotlin-plugin"]
-
-    plugins {
-        noCopyPlugin {
             displayName = "NoCopy Gradle Plugin"
-            version = "1.4.0"
+            version = "1.5.0"
+            description = "The Gradle plugin for no-copy, a Kotlin compiler plugin that removes the `copy` method of data classes."
+            tags.addAll("kotlin-compiler", "gradle-plugin", "intellij-plugin", "compiler-plugin", "data-class", "value-based",
+                    "annotations", "kotlin-extensions", "kotlin", "kotlin-language", "kotlin-library", "kotlin-compiler-plugin",
+                    "inspections", "kotlin-plugin")
         }
-    }
-
-    mavenCoordinates {
-        groupId = "dev.ahmedmourad.nocopy"
-        artifactId = "nocopy-gradle-plugin"
-        version = "1.4.0"
     }
 }
 

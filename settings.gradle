@@ -5,8 +5,8 @@ include "sample-android"
 
 includeBuild("plugins") {
     dependencySubstitution {
-        substitute module("dev.ahmedmourad.nocopy:nocopy-gradle-plugin") with project(":gradle-plugin")
-        substitute module("dev.ahmedmourad.nocopy:nocopy-annotations") with project(":annotations")
-        substitute module("dev.ahmedmourad.nocopy:nocopy-compiler-plugin") with project(":compiler-plugin")
+        substitute module("dev.ahmedmourad.nocopy:nocopy-gradle-plugin") using project(":gradle-plugin")
+        substitute module("dev.ahmedmourad.nocopy:nocopy-annotations") using project(":annotations")
+        substitute module("dev.ahmedmourad.nocopy:nocopy-compiler-plugin") using project(":compiler-plugin")
     }
 }

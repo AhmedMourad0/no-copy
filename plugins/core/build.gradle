@@ -1,10 +1,19 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 apply plugin: "org.jetbrains.kotlin.jvm"
 apply plugin: "com.vanniktech.maven.publish"
 
+sourceCompatibility = 17
+targetCompatibility = 17
+
 repositories {
     mavenCentral()
+}
+
+compileKotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_17
+    }
 }
 
 jar {

@@ -1,15 +1,14 @@
-
 plugins {
     id 'java'
     id "org.jetbrains.kotlin.jvm"
-    id 'org.jetbrains.intellij' version "1.0"
+    id 'org.jetbrains.intellij' version "1.17.1"
 }
 
 repositories {
     mavenCentral()
 }
 
-sourceCompatibility = 1.8
+sourceCompatibility = 17
 
 dependencies {
     implementation project(":compiler-plugin")
@@ -19,12 +18,13 @@ intellij {
     pluginName = "NoCopy IntelliJ IDEA Plugin"
     type = "IC"
     plugins = ["java", "Kotlin"]
+    version = "2023.3.4"
 }
 
 patchPluginXml {
     sinceBuild = "191.0"
-    untilBuild = "212.*"
-    version = "1.4.0"
+    untilBuild = "233.*"
+    version = "1.5.0"
 }
 
 publishPlugin {

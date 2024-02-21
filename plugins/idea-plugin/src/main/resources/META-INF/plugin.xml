@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>dev.ahmedmourad.nocopy.idea-plugin</id>
     <name>Kotlin NoCopy</name>
-    <version>1.4.0</version>
+    <version>1.5.0</version>
     <vendor email="dev.ahmedmourad73744@gmail.com">Ahmed Mourad</vendor>
 
     <description><![CDATA[
@@ -9,7 +9,7 @@
     <a href="https://github.com/AhmedMourad0/no-copy">Visit on Github</a>
     ]]></description>
 
-    <idea-version since-build="191.0" until-build="212.*"/>
+    <idea-version since-build="191.0" until-build="233.*"/>
 
     <depends>org.jetbrains.kotlin</depends>
     <depends>com.intellij.modules.platform</depends>

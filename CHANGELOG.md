@@ -1,6 +1,13 @@
 Changelog
 =========
 
+1.5.0
+-----
+
+_2024-02-15_
+
+- Added support for Kotlin 1.9.22
+
 1.4.0
 -----
 

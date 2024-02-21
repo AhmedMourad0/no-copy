@@ -24,7 +24,7 @@ User("Ahmed", "+201234567890").copy(phoneNumber = "Happy birthday!") // Unresolv
 ## Why? I hear you ask.
 
 The `copy` method of Kotlin data classes is a known language design problem, normally, you can't
-remove it, you can't override it, and you can document it.
+remove it, you can't override it, and you can't document it.
 
 Why would you want to do that? Well, there are a couple of reasons:
 
@@ -67,7 +67,7 @@ User.of("Ahmed", "+201234567890").copy(phoneNumber = "Gotcha")
 
 ```gradle
 plugins {
-  id "dev.ahmedmourad.nocopy.nocopy-gradle-plugin" version "1.4.0"
+  id "dev.ahmedmourad.nocopy.nocopy-gradle-plugin" version "1.5.0"
 }
 ```
 
@@ -83,7 +83,7 @@ buildscript {
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath "dev.ahmedmourad.nocopy:nocopy-gradle-plugin:1.4.0"
+        classpath "dev.ahmedmourad.nocopy:nocopy-gradle-plugin:1.5.0"
     }  
 }
 ```
@@ -111,12 +111,13 @@ apply plugin: 'dev.ahmedmourad.nocopy.nocopy-gradle-plugin'
 ## Versions
 
 | Kotlin Version | NoCopy Version |
-| :------------: | :------------: |
-| 1.5.0 | 1.4.0
-| 1.4.32 | 1.3.0
-| 1.4.20 | 1.2.0
-| 1.4.0 | 1.1.0
-| 1.3.72 | 1.0.0
+|:--------------:|:--------------:|
+|     1.9.20     |     1.5.0      
+|     1.5.0      |     1.4.0      
+|     1.4.32     |     1.3.0      
+|     1.4.20     |     1.2.0      
+|     1.4.0      |     1.1.0      
+|     1.3.72     |     1.0.0      
 
 
 License
@@ -137,4 +138,3 @@ License
     limitations under the License.
 
  [snapshots]: https://oss.sonatype.org/content/repositories/snapshots/
- 

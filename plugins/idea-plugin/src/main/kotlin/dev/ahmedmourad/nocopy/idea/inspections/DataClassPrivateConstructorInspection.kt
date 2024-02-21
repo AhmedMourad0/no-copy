@@ -6,7 +6,7 @@ import com.intellij.psi.PsiElementVisitor
 import dev.ahmedmourad.nocopy.core.NO_COPY_ANNOTATION
 import dev.ahmedmourad.nocopy.idea.inspections.fixes.AnnotateClassWithFix
 import dev.ahmedmourad.nocopy.idea.utils.hasNoCopy
-import org.jetbrains.kotlin.idea.inspections.AbstractKotlinInspection
+import org.jetbrains.kotlin.idea.codeinsight.api.classic.inspections.AbstractKotlinInspection
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.psi.classVisitor
 import org.jetbrains.kotlin.psi.psiUtil.isPrivate

@@ -13,11 +13,11 @@ open class NoCopySyntheticResolveExtension(
 ) : SyntheticResolveExtension {
 
     override fun generateSyntheticMethods(
-            thisDescriptor: ClassDescriptor,
-            name: Name,
-            bindingContext: BindingContext,
-            fromSupertypes: List<SimpleFunctionDescriptor>,
-            result: MutableCollection<SimpleFunctionDescriptor>
+        thisDescriptor: ClassDescriptor,
+        name: Name,
+        bindingContext: BindingContext,
+        fromSupertypes: List<SimpleFunctionDescriptor>,
+        result: MutableCollection<SimpleFunctionDescriptor>
     ) {
 
         val hasNoCopy = thisDescriptor.hasNoCopy()

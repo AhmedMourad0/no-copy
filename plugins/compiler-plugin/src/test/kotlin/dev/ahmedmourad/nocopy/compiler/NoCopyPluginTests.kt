@@ -1,15 +1,17 @@
 package dev.ahmedmourad.nocopy.compiler
 
 import com.google.common.truth.Truth.assertThat
+import com.tschuchort.compiletesting.JvmCompilationResult
 import com.tschuchort.compiletesting.KotlinCompilation
 import com.tschuchort.compiletesting.SourceFile
 import com.tschuchort.compiletesting.SourceFile.Companion.kotlin
-import org.jetbrains.kotlin.compiler.plugin.ComponentRegistrar
+import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
 import org.jetbrains.kotlin.config.JvmTarget
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
 
+@OptIn(ExperimentalCompilerApi::class)
 class NoCopyPluginTests {
 
     @Rule
@@ -114,18 +116,21 @@ class NoCopyPluginTests {
         assertThat(result.messages).contains("Unresolved reference: copy")
     }
 
+    @OptIn(ExperimentalCompilerApi::class)
     private fun prepareCompilation(vararg sourceFiles: SourceFile): KotlinCompilation {
         return KotlinCompilation().apply {
             workingDir = temporaryFolder.root
-            compilerPlugins = listOf<ComponentRegistrar>(NoCopyPlugin())
+            compilerPluginRegistrars = listOf(NoCopyPlugin())
             inheritClassPath = true
             sources = sourceFiles.asList()
             verbose = false
-            jvmTarget = JvmTarget.JVM_1_8.description
+            jvmTarget = JvmTarget.JVM_17.description
+//            supportsK2 = true
+//            languageVersion = "2.0"
         }
     }
 
-    private fun compile(vararg sourceFiles: SourceFile): KotlinCompilation.Result {
+    private fun compile(vararg sourceFiles: SourceFile): JvmCompilationResult {
         return prepareCompilation(*sourceFiles).compile()
     }
 }

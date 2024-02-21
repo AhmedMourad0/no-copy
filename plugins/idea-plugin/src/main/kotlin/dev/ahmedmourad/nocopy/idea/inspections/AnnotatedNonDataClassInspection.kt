@@ -9,7 +9,7 @@ import dev.ahmedmourad.nocopy.idea.inspections.fixes.ConvertToDataClassFix
 import dev.ahmedmourad.nocopy.idea.inspections.fixes.RemoveAllClassAnnotationsFix
 import dev.ahmedmourad.nocopy.idea.inspections.fixes.RemoveClassAnnotationFix
 import dev.ahmedmourad.nocopy.idea.utils.hasNoCopy
-import org.jetbrains.kotlin.idea.inspections.AbstractKotlinInspection
+import org.jetbrains.kotlin.idea.codeinsight.api.classic.inspections.AbstractKotlinInspection
 import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.psi.KtClassOrObject
