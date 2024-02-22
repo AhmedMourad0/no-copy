@@ -22,7 +22,7 @@ intellij {
 }
 
 patchPluginXml {
-    sinceBuild = "191.0"
+    sinceBuild = "223.0"
     untilBuild = "233.*"
     version = "1.5.0"
 }
